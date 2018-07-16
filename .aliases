@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+
+#QoL
+# alias src='. ~/.bash_profile'
+alias src='. ~/.zshrc'
+alias d='docker'
+alias zshrc='$EDITOR ~/.zshrc'
+alias myrc='$EDITOR ~/dotfiles/.myrc'
+alias profile='$EDITOR ~/.bash_profile'
+alias aliases='$EDITOR ~/dotfiles/.aliases'
+alias dotfiles='$EDITOR ~/dotfiles'
+alias gitconfig='$EDITOR ~/.gitconfig'
+alias dc='docker-compose'
+alias dn='docker network'
+alias y='yarn'
+alias tf="AWS_SDK_LOAD_CONFIG=1 terraform"
+alias cat="bat"
+alias sshconfig='$EDITOR ~/.ssh/config'
+alias jwtdp="pbpaste | jwt -D"
+alias dev="cd ~/Projects"
+alias dka="docker kill -a"
+alias tfa="tf apply -lock=false -auto-approve"
+alias awsl="aws --profile local"
+alias lum="lumigo-cli"
+alias m="make"
+
+# Time aliases
+alias time.now='TZ=UTC date +%FT%T'
+alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'
+alias time.1hr.ago='TZ=UTC date -v -1H +%FT%T'
+
+# ASCII weather reports
+# usage: weather <city>
+weather(){ curl http://wttr.in/$1 ; }
+
+# awsp
+alias awswho="aws configure list"
+
+#copy last command
+alias cplc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | pbcopy'
+
+#bloop
+alias bloop-start="brew services start bloop"
+alias bloop-stop="brew services stop bloop"
+
+#git
+alias ga="git add -A"
+alias gs="git status"
+alias gf="git fetch"
+alias gd="git diff"
+alias gd1="git diff @~1"
+alias gdc="git diff --cached"
+alias gpom="git pull origin master"
+alias gco="git checkout"
+alias gcl="git checkout -"
+alias gcm="git checkout master"
+alias gca="git commit --amend"
+alias gcan="git commit --amend --no-edit"
+alias gcra="git commit --amend --reset-author --no-edit"
+alias grm="git rebase master"
+alias gra="git rebase --abort"
+alias grc="git rebase --continue"
+alias grob='git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)'
+alias grsob='git reset --soft origin/$(git rev-parse --abbrev-ref HEAD)'
+alias gpob='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+alias gpobf='git push -u origin $(git rev-parse --abbrev-ref HEAD) --force-with-lease'
+alias gpub='git pull origin $(git rev-parse --abbrev-ref HEAD)'
+alias gpr="hub pull-request"
+alias gpl="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d"
+alias gl="git lol"
+alias gla="git lola"
+alias glc="git lolc"
+alias gsms="git submodule status"
+alias gsmu="git submodule update"
+alias gtl="git describe --abbrev=0 --tags"
+alias grhh="git reset --hard HEAD"
+alias grsh="git reset --soft HEAD"
+alias grom="git reset --hard origin/master"
+alias gcpa="git cherry-pick --abort"
+alias branch="git rev-parse --abbrev-ref HEAD"
+alias grp="git rev-parse --short HEAD"
+alias lolr='~/dotfiles/scripts/git/remote_branch_menu.sh'
+alias gq='~/dotfiles/scripts/git/git_quick.sh'
+alias gopen='open http://$(git config --get remote.origin.url | sed -E "s/^git@//; s/.git//; s/\:/\//")'
+alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
+
+# aws
+alias awsecrlogin='eval $(aws ecr get-login --no-include-email)'
+alias awsconfig='$EDITOR ~/.aws/config'
+alias awscreds='$EDITOR ~/.aws/credentials'
+alias awsp=". _awsp"
+
+port_pid(){
+  lsof -n -i4TCP:$1
+}
+
+# sbt force garbage collect
+sbtgc(){
+  local sbt_pids=()
+  IFS=$'\n' read -rd '' -A sbt_pids <<< $(ps -A | grep "java.*sbt-launch\.jar" | awk '{print $1}')
+  for pid in "$sbt_pids[@]"; do
+    if [ "$pid" -ne "" ]; then
+      jcmd $pid GC.run
+    fi
+  done
+}
+
+# g folder
+g(){
+  ./g/"$@" 2> /dev/null
+
+  if [[ "$?" -eq "127" ]]; then
+    any_matches=($(ls -a g/ | grep "^$1"))
+    if [[ "${#any_matches[@]}" -eq 1 ]]; then
+      shift
+      ./g/${any_matches[1]} "$@"
+    elif [[ "${#any_matches[@]}" -eq 0 ]]; then
+      echo "no matches"
+    else
+      echo "too many matches"
+    fi
+  fi
+}
+
+#exa
+#note: this alias is being overriden by oh-my-zsh aliases
+alias l="exa -la --git --time-style=long-iso --group-directories-first"

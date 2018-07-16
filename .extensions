@@ -1,0 +1,89 @@
+#!/usr/bin/env zsh
+
+setopt extendedglob
+
+#docker extension methods
+alias docker=Ext.docker
+
+Ext.docker(){
+  default(){ command docker "$@" ; }
+
+  # docker kill -a
+  kill_all(){
+    if [ -z "$(docker ps -q)" ]; then
+      echo "no containers to kill"
+    else
+      command docker kill $(docker ps -q)
+    fi
+  }
+
+  case "$1" in
+    kill)
+      case "$2" in
+        -a|--all) kill_all ;;
+        *       ) default "$@" ;;
+      esac ;;
+    *) default "$@" ;;
+  esac
+}
+
+# git extension methods
+alias git="Ext.git"
+
+Ext.git(){
+  default(){ command git "$@" }
+
+  Usage.git.commit.-mb(){ echo "usage: git commit -mb <commit-message>" ; }
+
+  # git commit -mb <message>
+  # prepends branch name to commit message if applicable
+  git.commit.-mb(){
+    COMMIT_MESSAGE=$1
+
+    # branch name pattern to match
+    PATTERN="^[A-Z]\+-[0-9]\+$"
+
+    BRANCH_NAME=$(git symbolic-ref --short HEAD)
+    BRANCH_NAME="${BRANCH_NAME##*/}"
+
+    MATCHED=$(echo $BRANCH_NAME | grep -ce $PATTERN)
+
+    if [[ $MATCHED -eq 0 ]]; then
+      # branch name did not match pattern, do a normal commit
+      command git commit -m $COMMIT_MESSAGE
+    else
+      command git commit -m "[$BRANCH_NAME] $COMMIT_MESSAGE"
+    fi
+  }
+
+
+  # git back <number>
+  # soft resets back a <number> of commits
+  git.back(){
+    n=$1
+    command git reset --soft HEAD~$n
+  }
+
+  Usage.git.back() { echo "usage: git back <number>" ; }
+
+  # extension method matcher
+  case "$1" in
+    back)
+      case "$2" in
+        0*      ) echo -e "number cannot start with a 0\n$(Usage.git.back)" ;;
+        *([0-9])) git.back $2 ;;
+        ''      ) echo -e "a number of commits to go back is required\n$(Usage.git.back)" ;;
+        *       ) echo -e "$2 was not a number\n$(Usage.git.back)"
+      esac ;;
+    commit)
+      case "$2" in
+        "-mb")
+          case "$3" in
+            '') echo -e "missing commit message\n$(Usage.git.commit.-mb)" ;;
+            * ) git.commit.-mb $3 ;;
+          esac ;;
+        *) default "$@" ;;
+      esac ;;
+    *) default "$@" ;;
+  esac
+}

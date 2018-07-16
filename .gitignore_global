@@ -1,0 +1,4 @@
+# personal folder in any git project
+/g/*
+**/g/*
+.idea/

@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+# An animated prompt
+# todo:
+# - stop animating while waiting for a foreground process to complete
+#   e.g. sbt compile
+# - on new line a partial arrow animation is left
+
+# returns the prompt message up to the supplied column number
+# usage: get_prompt_column 1
+get_prompt_column(){ echo "\033[1000D\033[$1C" ; }
+
+animate_prompt() {
+
+  local PID=$!
+  local S="\033[s" # save cursor position
+  local U="\033[u" # restore cursor position
+
+  local ARROW_CODE="\uF460"
+
+  local ARROW=$(blue $ARROW_CODE)
+  local DARK_ARROW=$(dark_blue $ARROW_CODE)
+
+  animation_frames=(
+    "${DARK_ARROW}/            /            /            "
+    "${ARROW}     /            /            /            "
+    "${ARROW}     ${DARK_ARROW}/            /            "
+    "${ARROW}     ${ARROW}     /            /            "
+    "${ARROW}     ${ARROW}     ${DARK_ARROW}/            "
+    "${ARROW}     ${ARROW}     ${ARROW}     /            "
+    "${ARROW}     ${ARROW}     ${ARROW}     ${DARK_ARROW}"
+    "${ARROW}     ${ARROW}     ${ARROW}     ${ARROW}     "
+    "${DARK_ARROW}${ARROW}     ${ARROW}     ${ARROW}     "
+    "/            ${ARROW}     ${ARROW}     ${ARROW}     "
+    "/            ${DARK_ARROW}${ARROW}     ${ARROW}     "
+    "/            /            ${ARROW}     ${ARROW}     "
+    "/            /            ${DARK_ARROW}${ARROW}     "
+    "/            /            /            ${ARROW}     "
+    "/            /            /            ${DARK_ARROW}"
+  )
+
+  # get first column of original prompt
+  POS=$(get_prompt_column 1)
+
+  while [ : ]
+  do
+    IFS=$'\n' read -rd '' -A y <<<"$PS1"
+
+    if [[ "$y[2]" == '$(print_icon MULTILINE_LAST_PROMPT_PREFIX)' ]];then
+      for i in "${animation_frames[@]}"
+      do
+        no_spaces=$(echo "$i" | sed "s/ //g")
+        animation_frame=$(echo "$no_spaces" | sed "s/\// /g")
+        eval echo -ne '${S}${POS}${animation_frame}${U}'
+        sleep 0.0417 # 24fps
+      done
+    fi
+  done
+}
+
+_start_animation(){
+  # stops the background jobs from printing job info local to this function
+  # will restore options after function is executed
+  # setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
+  animate_prompt &
+  ANIMATE_JOB=$(echo $!)
+  echo started
+}
+
+_kill_animation(){
+  setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
+  kill "$ANIMATE_JOB"
+  wait "$ANIMATE_JOB"
+}
+
+# starts
+# if [ -z "$ANIMATE_JOB" ]; then
+#   _start_animation
+#   ANIMATE_JOB=$(echo $!)
+# fi
+
+function cleanup {
+  _kill_animation
+  ANIMATE_JOB=""
+}
+
+function stop {
+  kill -STOP "$ANIMATE_JOB"
+}
+
+function continue {
+  kill -CONT "$ANIMATE_JOB"
+}
+
+# for debugging - ctrl+c will kill job
+# trap cleanup SIGINT

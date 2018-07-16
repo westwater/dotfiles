@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# My run commands
+
+# global variables
+EDITOR='atom'
+# export JAVA_OPTS="-Dfile.encoding=UTF8 -Xms1G -Xmx4G -XX:ReservedCodeCacheSize=250M -XX:+TieredCompilation -XX:+UseParallelGC -XX:MaxInlineLevel=18"
+export SDKMAN_DIR="$HOME/.sdkman"
+export NODE_PATH=/usr/local/lib/node_modules
+
+# RUN_ON_ENTER=() # reset on source
+
+# pyenv
+# remember to run pyenv rehash after upgrading to change version in shims
+if type "pyenv" > /dev/null; then
+  export PATH="$(pyenv root)/shims:$PATH"
+fi
+
+# function path_remove {
+#   # Delete path by parts so we can never accidentally remove sub paths
+#   PATH=${PATH//":$1:"/":"} # delete any instances in the middle
+#   PATH=${PATH/#"$1:"/} # delete any instance at the beginning
+#   PATH=${PATH/%":$1"/} # delete any instance in the at the end
+# }
+#
+# path_remove "/usr/bin/java"
+
+# marker
+[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+
+# bat
+export BAT_THEME="1337"
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# nvm
+export NVM_DIR="$HOME/.nvm" # to keep nvm installs when upgrading/reinstalling nvm
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# functions
+
+# greps the shell commands loaded on startup to find where
+# a specific environment variable is loaded from
+# usage: find_var some_env_variable
+#
+# todo: fix needed
+#   - need to open new tab after use
+#     or
+#   - need to execute 'exit' after use
+find_var() { zsh -xl 2>&1 | grep $1 ; }
+
+# files to load on startup
+filesToLoad=(
+  # dotfiles/.animate_prompt
+  dotfiles/scripts/colours.sh
+  dotfiles/.aliases
+  dotfiles/.extensions
+  dotfiles/.pl9k_theme
+  .sdkman/bin/sdkman-init.sh
+)
+
+for file in "${filesToLoad[@]}"; do
+  [[ -s "$HOME/$file" ]] && source "$HOME/$file"
+done
