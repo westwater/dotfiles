@@ -60,6 +60,7 @@ alias gcra="git commit --amend --reset-author --no-edit"
 alias grm="git rebase master"
 alias gra="git rebase --abort"
 alias grc="git rebase --continue"
+alias grmr="git rebase -i master --root"
 alias grob='git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)'
 alias grsob='git reset --soft origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpob='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
