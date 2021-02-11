@@ -23,7 +23,8 @@ alias tfa="tf apply -lock=false -auto-approve"
 alias awsl="aws --profile local"
 alias lum="lumigo-cli"
 alias m="make"
-
+alias s="/usr/local/bin/screen"
+alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tee /dev/tty | pbcopy'
 # Time aliases
 alias time.now='TZ=UTC date +%FT%T'
 alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'

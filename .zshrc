@@ -3,6 +3,14 @@ export ZSH="$HOME/.oh-my-zsh"
 
 export GPG_TTY=$(tty)
 
+# run each session in screen to log output
+if type "/usr/local/bin/screen" > /dev/null; then
+	TTY_ID="${TTY##*/}"
+	if [[ -z "$IN_SCREEN_SESSION" ]]; then
+	    #/usr/local/bin/screen -L -Logfile "/tmp/$TTY_ID" -X setenv IN_SCREEN_SESSION 1
+	fi
+fi
+
 # ZSH_THEME="powerlevel9k/powerlevel9k"
 # faster implementation of p9k
 ZSH_THEME="powerlevel10k/powerlevel10k"

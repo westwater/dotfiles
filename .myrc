@@ -2,7 +2,7 @@
 # My run commands
 
 # global variables
-EDITOR='atom'
+EDITOR='micro'
 # export JAVA_OPTS="-Dfile.encoding=UTF8 -Xms1G -Xmx4G -XX:ReservedCodeCacheSize=250M -XX:+TieredCompilation -XX:+UseParallelGC -XX:MaxInlineLevel=18"
 export SDKMAN_DIR="$HOME/.sdkman"
 export NODE_PATH=/usr/local/lib/node_modules
