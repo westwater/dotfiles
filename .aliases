@@ -44,6 +44,9 @@ alias cplc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | pbcopy'
 alias bloop-start="brew services start bloop"
 alias bloop-stop="brew services stop bloop"
 
+#g
+alias g="bash ~/dotfiles/scripts/g"
+
 #git
 alias ga="git add -A"
 alias gs="git status"
@@ -105,23 +108,6 @@ sbtgc(){
       jcmd $pid GC.run
     fi
   done
-}
-
-# g folder
-g(){
-  ./g/"$@" 2> /dev/null
-
-  if [[ "$?" -eq "127" ]]; then
-    any_matches=($(ls -a g/ | grep "^$1"))
-    if [[ "${#any_matches[@]}" -eq 1 ]]; then
-      shift
-      ./g/${any_matches[1]} "$@"
-    elif [[ "${#any_matches[@]}" -eq 0 ]]; then
-      echo "no matches"
-    else
-      echo "too many matches"
-    fi
-  fi
 }
 
 #exa

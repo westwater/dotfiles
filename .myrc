@@ -6,6 +6,7 @@ EDITOR='micro'
 # export JAVA_OPTS="-Dfile.encoding=UTF8 -Xms1G -Xmx4G -XX:ReservedCodeCacheSize=250M -XX:+TieredCompilation -XX:+UseParallelGC -XX:MaxInlineLevel=18"
 export SDKMAN_DIR="$HOME/.sdkman"
 export NODE_PATH=/usr/local/lib/node_modules
+export YOURKIT_HOME="/Applications/YourKit-Java-Profiler-2020.7.app/Contents/Resources"
 
 # RUN_ON_ENTER=() # reset on source
 
@@ -58,6 +59,7 @@ filesToLoad=(
   dotfiles/.aliases
   dotfiles/.extensions
   dotfiles/.pl9k_theme
+  vault/secrets
   .sdkman/bin/sdkman-init.sh
 )
 

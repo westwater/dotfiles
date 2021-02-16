@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Disable automatic periods with a double space:
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+# Set a shorter delay until key repeat:
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
