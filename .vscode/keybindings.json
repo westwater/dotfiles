@@ -2,7 +2,30 @@
 [
     {
         "key": "cmd+t",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+f12",
+        "command": "-workbench.action.terminal.toggleTerminal",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "cmd+t",
+        "command": "-git.sync"
+    },
+    {
+        "key": "cmd+t",
+        "command": "-workbench.action.showAllSymbols"
+    },
+    {
+        "key": "cmd+t",
         "command": "workbench.action.terminal.focus",
+        "when": "terminalProcessSupported && !terminalFocus"
+    },
+    {
+        "key": "alt+f12",
+        "command": "-workbench.action.terminal.focus",
         "when": "terminalProcessSupported && !terminalFocus"
     }
 ]
