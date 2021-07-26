@@ -13,7 +13,7 @@ alias gitconfig='$EDITOR ~/.gitconfig'
 alias dc='docker-compose'
 alias dn='docker network'
 alias y='yarn'
-alias tf="AWS_SDK_LOAD_CONFIG=1 terraform"
+alias tf="CGO_ENABLED=1 AWS_SDK_LOAD_CONFIG=1 terraform"
 alias cat="bat"
 alias sshconfig='$EDITOR ~/.ssh/config'
 alias jwtdp="pbpaste | jwt -D"
@@ -23,6 +23,7 @@ alias tfa="tf apply -lock=false -auto-approve"
 alias awsl="aws --profile local"
 alias lum="lumigo-cli"
 alias m="make"
+alias mi="micro"
 alias s="/usr/local/bin/screen"
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tee /dev/tty | pbcopy'
 # Time aliases

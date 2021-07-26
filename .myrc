@@ -7,6 +7,7 @@ EDITOR='micro'
 export SDKMAN_DIR="$HOME/.sdkman"
 export NODE_PATH=/usr/local/lib/node_modules
 export YOURKIT_HOME="/Applications/YourKit-Java-Profiler-2020.7.app/Contents/Resources"
+export GOROOT="/usr/local/Cellar/go/1.16.3/libexec"
 
 # RUN_ON_ENTER=() # reset on source
 
