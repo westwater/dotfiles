@@ -1,27 +1,18 @@
+# ZSH
 # Path to oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+DISABLE_AUTO_UPDATE="true"
+# Display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export GPG_TTY=$(tty)
 
-# run each session in screen to log output
-if type "/usr/local/bin/screen" > /dev/null; then
-	TTY_ID="${TTY##*/}"
-	if [[ -z "$IN_SCREEN_SESSION" ]]; then
-	    #/usr/local/bin/screen -L -Logfile "/tmp/$TTY_ID" -X setenv IN_SCREEN_SESSION 1
-	fi
-fi
-
-# ZSH_THEME="powerlevel9k/powerlevel9k"
-# faster implementation of p9k
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-DISABLE_AUTO_UPDATE="true"
-
 # Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
 
 zstyle ':bracketed-paste-magic' active-widgets '.self-*' # instant pasting - see: https://github.com/zsh-users/zsh-syntax-highlighting/issues/295
 
@@ -47,9 +38,6 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 eval "$(direnv hook zsh)"
-
-# Adding Genymotion tools directory path
-# export PATH="/Applications/Genymotion.app/Contents/MacOS/tools/:$PATH"
 
 function zsh_options() {
     PLUGIN_PATH="$HOME/.oh-my-zsh/plugins/"
