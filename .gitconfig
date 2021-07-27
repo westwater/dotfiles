@@ -1,5 +1,5 @@
 [include]
-	path = ~/vault/.gitconfig # git secrets and variable config based on cwd
+	path = ~/vault/git/.gitconfig # git secrets and variable config based on cwd
 [core]
 	editor = micro
 	pager = diff-so-fancy | less --tabs=4 -RFX

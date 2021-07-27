@@ -26,6 +26,7 @@ alias m="make"
 alias mi="micro"
 alias s="/usr/local/bin/screen"
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tee /dev/tty | pbcopy'
+alias kitty='$EDITOR ~/.config/kitty/kitty.conf'
 # Time aliases
 alias time.now='TZ=UTC date +%FT%T'
 alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'

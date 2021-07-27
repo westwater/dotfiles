@@ -46,8 +46,13 @@ function zsh_options() {
     done
 }
 
-# custom zsh keybinds
+# ZSH keybinds
+# utility
 bindkey -s '^G' ' | grep'
+
+# kitty
+bindkey "\e[1;3D" backward-word # ⌥←
+bindkey "\e[1;3C" forward-word # ⌥→
 
 # re-source aliases to overwrite PL10K aliases
 [[ -s "$HOME/dotfiles/.aliases" ]] && source "$HOME/dotfiles/.aliases"
