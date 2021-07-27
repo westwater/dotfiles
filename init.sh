@@ -1,5 +1,26 @@
 # Prerequisites
 
+# Install xcode
+# xcode-select --install
+
+# Install Rosetta
+# softwareupdate --install-rosetta
+
+# Install brew (there is an m1 version but you need to specify arch before brew everytime)
+# /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
+# Then add the following to zshrc
+# echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/westwater/.zshrc
+# eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Install Kitty terminal on Apple silicon Mac (need to build from source)
+# brew install pkg-config
+# brew install harfbuzz
+# brew install little-cms2
+# git clone https://github.com/kovidgoyal/kitty && cd kitty
+# make app
+# Move kitty.app to applications folder
+
+
 # Add ssh key to github account
 # ssh-keygen -t ed25519 -C "gmwestwater@hotmail.co.uk"
 
@@ -28,6 +49,10 @@ command -v rbenv > /dev/null || { echo "> installing rbenv"; brew install rbenv;
 command -v direnv > /dev/null || { echo "> installing direnv"; brew install direnv; }
 command -v exa > /dev/null || { echo "> installing exa"; brew install exa; }
 command -v bat > /dev/null || { echo "> installing bat"; brew install bat; }
+command -v micro > /dev/null || { echo "> installing micro"; brew install micro; }
+
+# Install oh-my-zsh
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Install terminal theme
 [ -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ] || { echo "> installing powerlevel10k"; git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k; }
