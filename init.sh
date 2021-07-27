@@ -1,3 +1,5 @@
+# Install brew
+command -v brew > /dev/null || { echo "> installing brew"; brew install diff-so-fancy; /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"}
 
 # Install terminal commands
 command -v diff-so-fancy > /dev/null || { echo "> installing diff-so-fancy"; brew install diff-so-fancy; }
