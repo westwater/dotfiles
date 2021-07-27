@@ -50,6 +50,8 @@ command -v direnv > /dev/null || { echo "> installing direnv"; brew install dire
 command -v exa > /dev/null || { echo "> installing exa"; brew install exa; }
 command -v bat > /dev/null || { echo "> installing bat"; brew install bat; }
 command -v micro > /dev/null || { echo "> installing micro"; brew install micro; }
+# docker might not intall because of the extension commands
+command -v docker > /dev/null || { echo "> installing docker"; brew install docker; }
 
 # Install oh-my-zsh
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
