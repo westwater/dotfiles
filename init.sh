@@ -39,3 +39,8 @@ command -v bat > /dev/null || { echo "> installing bat"; brew install bat; }
 # Clone vault
 
 [ -d $HOME/vault ] || { echo "> Cloning vault"; git clone git@github.com:westwater/vault.git $HOME/vault; }
+
+# Install nerd fonts
+
+# brew tap homebrew/cask-fonts
+# brew install --cask font-hack-nerd-font 
