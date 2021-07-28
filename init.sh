@@ -28,7 +28,7 @@
 # eval "$(ssh-agent -s)"
 
 # Make sure ssh-config file exists
-[ -f $HOME/.ssh/config ] || { echo "> Creating ssh config"; touch $HOME/.ssh/config; }
+# [ -f $HOME/.ssh/config ] || { echo "> Creating ssh config"; touch $HOME/.ssh/config; }
 
 # Add config
 # Host *
@@ -52,6 +52,7 @@ command -v bat > /dev/null || { echo "> installing bat"; brew install bat; }
 command -v micro > /dev/null || { echo "> installing micro"; brew install micro; }
 # docker might not intall because of the extension commands
 command -v docker > /dev/null || { echo "> installing docker"; brew install docker; }
+command -v sdk > /dev/null || { echo "> installing sdkman"; curl -s "https://get.sdkman.io" | bash; }
 
 # Install oh-my-zsh
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
