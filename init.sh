@@ -72,3 +72,9 @@ command -v sdk > /dev/null || { echo "> installing sdkman"; curl -s "https://get
 
 # brew tap homebrew/cask-fonts
 # brew install --cask font-hack-nerd-font 
+
+ # clone g
+ # [ -d $HOME/.g ] || { echo "> Installing g"; git clone git@github.com:westwater/g.git $HOME/.g;} 
+
+# link dotfiles to host directories
+# ./link.sh
