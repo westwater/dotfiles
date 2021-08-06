@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# framework for running helper scripts from a hidden /g directory in git repos
+# hidden /g directory should be added to global .gitignore config
+
+# check g directory exists in cwd
+if [ ! -d "g" ]; then
+	printf "Directory /g not found in cwd, checking g project\n"
+	DIR=${PWD##*/}
+	if [ -d ~/Projects/g/$DIR ]; then
+		read  -n 1 -p "$DIR found, Add y/n?: " input
+	    if [ "$input" = "y" ]; then
+	    	ln -s ~/Projects/g/$DIR $PWD/g
+	    fi
+	else
+		echo "nah"
+	fi
+else
+	# check for args
+	if [ "$#" -eq  "0" ]; then
+		echo -e "Usage: g \033[0;32mSCRIPT_NAME\033[0m"
+		echo -e "\033[0;32m> $(ls g) \033[0m"
+		exit 1
+	fi
+	
+	# check for matches in a g folder in cwd 
+	./g/"$@" 2> /dev/null
+	
+	if [[ "$?" -eq "127" ]]; then
+	  # search for scripts starting with first arg in g/ dir
+	  any_matches=($(ls -a g/ | grep "^$1"))
+	  if [[ "${#any_matches[@]}" -eq 1 ]]; then
+	    # shift past original arg to replace with matched
+	    shift
+	    echo -e "\033[0;32m> g ${any_matches[0]} $@\033[0m"
+	    ./g/${any_matches[0]} "$@"
+	  elif [[ "${#any_matches[@]}" -eq 0 ]]; then
+	    echo "no matches"
+	  else
+	    echo "too many matches"
+	  fi
+	fi
+fi
