@@ -9,12 +9,22 @@ COMPLETION_WAITING_DOTS="true"
 # Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# pyenv
+# remember to run pyenv rehash after upgrading to change version in shims
+if type "pyenv" > /dev/null; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$(pyenv root)/shims:$PATH"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
+fi
+
 export GPG_TTY=$(tty)
 
 # Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
-zstyle ':bracketed-paste-magic' active-widgets '.self-*' # instant pasting - see: https://github.com/zsh-users/zsh-syntax-highlighting/issues/295
+ # instant pasting - see: https://github.com/zsh-users/zsh-syntax-highlighting/issues/295
+zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
 # removes percent symbol on terminal start
 unsetopt PROMPT_SP
@@ -62,3 +72,5 @@ bindkey "\e[1;3C" forward-word # ⌥→
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 # enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

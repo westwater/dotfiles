@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# framework for running helper scripts from a hidden /g directory in git repos
-# hidden /g directory should be added to global .gitignore config
+# framework for running helper scripts from a personal, hidden directory in git repos
+# hidden directory should be added to global .gitignore config
 
 # check g directory exists in cwd
 if [ ! -d "g" ]; then

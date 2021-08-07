@@ -52,7 +52,11 @@ command -v bat > /dev/null || { echo "> installing bat"; brew install bat; }
 command -v micro > /dev/null || { echo "> installing micro"; brew install micro; }
 # docker might not intall because of the extension commands
 command -v docker > /dev/null || { echo "> installing docker"; brew install docker; }
+command -v pyenv > /dev/null || { echo "> installing pyenv"; brew install pyenv; }
 command -v sdk > /dev/null || { echo "> installing sdkman"; curl -s "https://get.sdkman.io" | bash; }
+# run the following after install to get reverse search linked to fzf
+# $(brew --prefix)/opt/fzf/install
+command -v fzf > /dev/null || { echo "> installing fzf"; brew install fzf; }
 
 # Install oh-my-zsh
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

@@ -9,12 +9,6 @@ export NODE_PATH=/usr/local/lib/node_modules
 export YOURKIT_HOME="/Applications/YourKit-Java-Profiler-2020.7.app/Contents/Resources"
 export GOROOT="/usr/local/Cellar/go/1.16.3/libexec"
 
-# pyenv
-# remember to run pyenv rehash after upgrading to change version in shims
-if type "pyenv" > /dev/null; then
-  export PATH="$(pyenv root)/shims:$PATH"
-fi
-
 # function path_remove {
 #   # Delete path by parts so we can never accidentally remove sub paths
 #   PATH=${PATH//":$1:"/":"} # delete any instances in the middle
