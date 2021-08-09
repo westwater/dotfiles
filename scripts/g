@@ -1,43 +1,58 @@
-#!/bin/bash
+#!/bin/zsh
 
 # framework for running helper scripts from a personal, hidden directory in git repos
 # hidden directory should be added to global .gitignore config
 
-# check g directory exists in cwd
-if [ ! -d "g" ]; then
-	printf "Directory /g not found in cwd, checking g project\n"
-	DIR=${PWD##*/}
-	if [ -d ~/Projects/g/$DIR ]; then
-		read  -n 1 -p "$DIR found, Add y/n?: " input
-	    if [ "$input" = "y" ]; then
-	    	ln -s ~/Projects/g/$DIR $PWD/g
-	    fi
+ # todo:
+ # - only works for ssh repos, add support for https
+
+# check its a git repo
+if [ -d .git ]; then
+
+	# check .g directory exists in cwd
+	if [ ! -d ".g" ]; then
+		echo -e "\033[1;33mDirectory /.g not found in cwd, checking .g project \033[0m"
+		# only works for ssh repos
+		GIT_PATH=$(git config --get remote.origin.url | sed -e 's/^git@.*:\([[:graph:]]*\).git/\1/')
+		ORG=$(cut -d'/' -f1 <<< $GIT_PATH)
+		REPO=$(cut -d'/' -f2 <<< $GIT_PATH)
+		if [ -d ~/.g/$ORG/$REPO ]; then
+			read  -n 1 -p $'\033[1;32m$ORG/$REPO found, Add y/n?: \033[0m' input
+		    if [ "$input" = "y" ]; then
+		        echo -e "\033[1;32mLinking... \033[0m"
+		    	ln -s ~/.g/$ORG/$REPO $PWD/.g
+		    else 
+		    	echo -e "\n:("
+		    fi
+		else
+			echo -e "\033[1;31mNot found for $ORG/$REPO \033[0m"
+		fi
 	else
-		echo "nah"
+		# check for args
+		if [ "$#" -eq  "0" ]; then
+			echo -e "Usage: g \033[0;32mSCRIPT_NAME\033[0m"
+			echo -e "\033[0;32m> $(ls .g) \033[0m"
+			exit 1
+		fi
+		
+		# check for matches in a g folder in cwd 
+		./.g/"$@" 2> /dev/null
+		
+		if [[ "$?" -eq "127" ]]; then
+		  # search for scripts starting with first arg in g/ dir
+		  any_matches=($(ls -a .g/ | grep "^$1"))
+		  if [[ "${#any_matches[@]}" -eq 1 ]]; then
+		    # shift past original arg to replace with matched
+		    shift
+		    echo -e "\033[0;32m> .g ${any_matches[0]} $@\033[0m"
+		    ./g/${any_matches[0]} "$@"
+		  elif [[ "${#any_matches[@]}" -eq 0 ]]; then
+		    echo "no matches"
+		  else
+		    echo "too many matches"
+		  fi
+		fi
 	fi
 else
-	# check for args
-	if [ "$#" -eq  "0" ]; then
-		echo -e "Usage: g \033[0;32mSCRIPT_NAME\033[0m"
-		echo -e "\033[0;32m> $(ls g) \033[0m"
-		exit 1
-	fi
-	
-	# check for matches in a g folder in cwd 
-	./g/"$@" 2> /dev/null
-	
-	if [[ "$?" -eq "127" ]]; then
-	  # search for scripts starting with first arg in g/ dir
-	  any_matches=($(ls -a g/ | grep "^$1"))
-	  if [[ "${#any_matches[@]}" -eq 1 ]]; then
-	    # shift past original arg to replace with matched
-	    shift
-	    echo -e "\033[0;32m> g ${any_matches[0]} $@\033[0m"
-	    ./g/${any_matches[0]} "$@"
-	  elif [[ "${#any_matches[@]}" -eq 0 ]]; then
-	    echo "no matches"
-	  else
-	    echo "too many matches"
-	  fi
-	fi
+	echo -e "\033[1;31mNot a git repository \033[0m"
 fi
