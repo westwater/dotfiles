@@ -58,6 +58,12 @@ command -v sdk > /dev/null || { echo "> installing sdkman"; curl -s "https://get
 # $(brew --prefix)/opt/fzf/install
 command -v fzf > /dev/null || { echo "> installing fzf"; brew install fzf; }
 
+# Upgrading bash
+# brew install bash
+# sudo micro /etc/shells
+# add /opt/homebrew/bin/bash
+# make sure to use the following shebang #!/usr/bin/env bash (uses first bash on PATH)
+
 # Install oh-my-zsh
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -67,8 +73,8 @@ command -v fzf > /dev/null || { echo "> installing fzf"; brew install fzf; }
 # Install oh-my-zsh plugins
 [ -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ] || { echo "> installing zsh-autosuggestions"; git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions; }
 [ -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ] || { echo "> installing zsh-syntax-highlighting"; git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; }
-
 # Clone vault
+
 
 [ -d $HOME/vault ] || { echo "> Cloning vault"; git clone git@github.com:westwater/vault.git $HOME/vault; }
 

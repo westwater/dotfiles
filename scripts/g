@@ -7,7 +7,7 @@
  # - only works for ssh repos, add support for https
 
 # check its a git repo
-[ ! -d .git ] || { echo -e "\033[1;31mNot a git repository \033[0m"; exit 1; }
+[ -d .git ] || { echo -e "\033[1;31mNot a git repository \033[0m"; exit 1; }
 
 # check .g directory exists in cwd
 if [ ! -d ".g" ]; then
@@ -46,7 +46,7 @@ else
 	    # shift past original arg to replace with matched
 	    shift
 	    echo -e "\033[0;32m> .g ${any_matches[0]} $@\033[0m"
-	    ./g/${any_matches[0]} "$@"
+	    ./.g/${any_matches[0]} "$@"
 	  elif [[ "${#any_matches[@]}" -eq 0 ]]; then
 	    echo "no matches"
 	  else

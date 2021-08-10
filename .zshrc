@@ -7,7 +7,15 @@ DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 
 # Brew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if type "brew" > /dev/null; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Bash (brew)
+# Add before path to mac bash for /env bash shebang
+if [ -d /opt/homebrew/bin ]; then
+	export PATH=/opt/homebrew/bin:$PATH
+fi
 
 # pyenv
 # remember to run pyenv rehash after upgrading to change version in shims
