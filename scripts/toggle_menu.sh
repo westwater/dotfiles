@@ -30,10 +30,8 @@ toggle_menu() {
         					 printf "\033[0;33m>\033[0m $key $value"; }
         clear_selected()   { printf "  \033[K"; }
         get_cursor_row()   { IFS=';' read -sdR -p $'\033[6n' ROW COL; echo ${ROW#*[}; }
-       	toggle()           { local key=$1 local value="${_toggles[$key]}";
-       					     debug "key/value $key / $value";
-	     				     if [ $value -eq 0 ]; then $value=1; else $value=0; fi;
-	     				     _toggles[$key]=$value; }
+       	toggle()           { local key=$1; local value="${_toggles[$key]}"
+	     				     if [ $value -eq 0 ]; then _toggles[$key]=1; else _toggles[$key]=0; fi }
         key_input()        { read -s -n3 key 2>/dev/null >&2
                             if [[ $key = $'\033[A' ]]; then echo up;    fi
                             if [[ $key = $'\033[B' ]]; then echo down;  fi
