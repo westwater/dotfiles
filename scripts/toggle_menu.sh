@@ -15,6 +15,7 @@ toggle_menu() {
 
     declare -A _toggles
     declare -n inhash=$1
+    declare -n outhash=$2
 
     # helpers for terminal print control and key input
         cursor_blink_on()  { printf "\033[?25h"; }
@@ -51,11 +52,11 @@ toggle_menu() {
 
     debug "keys size: ${#keys[@]}"
 
-    echo -e "Docker services:"
+    echo -e "\n  Docker services:"
 
     # initially print empty new lines
     # will scroll down if at bottom of screen
-    for ((n=0; n <= $toggles_size; n++)); do printf "\n"; done
+    for ((n=0; n < $toggles_size; n++)); do printf "\n"; done
 
     cursor_blink_off
 
@@ -99,7 +100,15 @@ toggle_menu() {
 	done
 
 	debug "done"
+
+	echo -e ""
+	
 	cursor_blink_on
+
+	for param in "${!_toggles[@]}"; do
+        debug $param
+        outhash[$param]="${_toggles[$param]}"
+    done
 
 	return 1
 }
