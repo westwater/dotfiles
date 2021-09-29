@@ -18,7 +18,9 @@ option_menu -q "Select a branch:" -s 10 "${branches[@]}"
 choice=$?
 choice=${branches[$choice]}
 
-branch=$(echo $choice | grep -Eow "origin/[a-zA-Z0-9_-]+" | sed "s/origin\///g") # get branch and strip 'origin/'
+# example choice: "origin/feature/ABC-287-some-feature - Some Guy (4 weeks ago)"
+# print all text until first space then strip "origin", leaving just the branch name
+branch=$(echo $choice | awk '{print $1}' | sed "s/origin\///g") # get branch and strip 'origin/'
 
 yellow "  git checkout $branch"
 git checkout -q $branch

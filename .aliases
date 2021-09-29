@@ -27,6 +27,7 @@ alias mi="micro"
 alias s="/usr/local/bin/screen"
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tee /dev/tty | pbcopy'
 alias kittyconfig='$EDITOR ~/.config/kitty/kitty.conf'
+alias vault="cd ~/vault"
 # Time aliases
 alias time.now='TZ=UTC date +%FT%T'
 alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'

@@ -8,7 +8,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Brew
 if type "brew" > /dev/null; then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
+	#eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Bash (brew)
@@ -86,4 +86,8 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
 # Replaces reverse searching menu with fzf
+# to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# shell completions
+[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)

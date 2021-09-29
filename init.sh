@@ -82,6 +82,7 @@ command -v fzf > /dev/null || { echo "> installing fzf"; brew install fzf; }
 
 # brew tap homebrew/cask-fonts
 # brew install --cask font-hack-nerd-font 
+# font-meslo-lg
 
  # clone g
  # [ -d $HOME/.g ] || { echo "> Installing g"; git clone git@github.com:westwater/g.git $HOME/.g;} 
