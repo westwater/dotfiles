@@ -27,8 +27,31 @@ Ext.docker(){
   esac
 }
 
+# docker-compose extension methods
+alias docker-compose=Ext.docker-compose
+
+Ext.docker-compose(){
+  default(){ command docker-compose "$@" }
+
+  Usage.docker.compose.reup(){ echo "usage: docker-compose reup <service>" ; }
+
+  docker-compose.reup(){
+  	SERVICE=$1
+
+  	docker-compose stop $1
+	docker-compose rm -f -v $1
+	docker-compose create --force-recreate $1
+	docker-compose start $1
+  }
+
+  case "$1" in
+    reup) docker-compose.reup $2 ;;
+    *   ) default "$@" ;;
+  esac
+}
+
 # git extension methods
-alias git="Ext.git"
+alias git=Ext.git
 
 Ext.git(){
   default(){ command git "$@" }
@@ -56,7 +79,6 @@ Ext.git(){
     fi
   }
 
-
   # git back <number>
   # soft resets back a <number> of commits
   git.back(){
@@ -64,7 +86,7 @@ Ext.git(){
     command git reset --soft HEAD~$n
   }
 
-  Usage.git.back() { echo "usage: git back <number>" ; }
+  Usage.git.back() { echo "Soft resets back a <number> of commits\nusage: git back <number>" ; }
 
   # extension method matcher
   case "$1" in
@@ -73,7 +95,8 @@ Ext.git(){
         0*      ) echo -e "number cannot start with a 0\n$(Usage.git.back)" ;;
         *([0-9])) git.back $2 ;;
         ''      ) echo -e "a number of commits to go back is required\n$(Usage.git.back)" ;;
-        *       ) echo -e "$2 was not a number\n$(Usage.git.back)"
+        -*      ) echo -e "unknown option $2\n\n$(Usage.git.back)" ;;
+        *       ) echo -e "$2 was not a number\n\n$(Usage.git.back)"
       esac ;;
     commit)
       case "$2" in
