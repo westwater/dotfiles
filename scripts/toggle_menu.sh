@@ -22,12 +22,12 @@ toggle_menu() {
         cursor_blink_off() { printf "\033[?25l"; }
         cursor_to()        { printf "\033[$1;${2:-1}H"; }
         print_toggle()     { local key=$1 local value="${_toggles[$key]}";
-        					 if [ $value -eq 0 ]; then value="\033[0;31moff\033[0m";
-        					 else value="\033[0;32mon\033[0m"; fi
+        					 if [ $value -eq 0 ]; then value="\033[0;31mno\033[0m";
+        					 else value="\033[0;32myes\033[0m"; fi
         					 printf "  $key $value"; }
         print_selected()   { local key=$1 local value="${_toggles[$key]}";
-        					 if [ $value -eq 0 ]; then value="\033[0;31moff\033[0m";
-              			     else value="\033[0;32mon\033[0m"; fi
+        					 if [ $value -eq 0 ]; then value="\033[0;31mno\033[0m";
+              			     else value="\033[0;32myes\033[0m"; fi
         					 printf "\033[0;33m>\033[0m $key $value"; }
         clear_selected()   { printf "  \033[K"; }
         get_cursor_row()   { IFS=';' read -sdR -p $'\033[6n' ROW COL; echo ${ROW#*[}; }
