@@ -91,3 +91,4 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-clou
 
 # shell completions
 [[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+

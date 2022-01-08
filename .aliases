@@ -29,6 +29,7 @@ alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tee /dev/tty | pbcopy'
 alias kittyconfig='$EDITOR ~/.config/kitty/kitty.conf'
 alias vault="cd ~/vault"
 alias sbtd="dev= sbt"
+alias ku="kubectl"
 # Time aliases
 alias time.now='TZ=UTC date +%FT%T'
 alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'
@@ -56,6 +57,8 @@ alias ga="git add -A"
 alias gs="git status"
 alias gf="git fetch"
 alias gd="git diff"
+alias gp="git pull"
+alias gpr="git pull --rebase"
 alias gd1="git diff @~1"
 alias gdc="git diff --cached"
 alias gpom="git pull origin master"
@@ -76,7 +79,6 @@ alias grsob='git reset --soft origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpob='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 alias gpobf='git push -u origin $(git rev-parse --abbrev-ref HEAD) --force-with-lease'
 alias gpb='git pull origin $(git rev-parse --abbrev-ref HEAD)'
-alias gpr="hub pull-request"
 alias gpl="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d"
 alias gl="git lol"
 alias gla="git lola"
