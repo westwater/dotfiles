@@ -26,6 +26,9 @@ if type "pyenv" > /dev/null; then
   eval "$(pyenv init --path)"
 fi
 
+# allow programs installed via pip to be put on the path
+export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
+
 export GPG_TTY=$(tty)
 
 # Uncomment the following line to disable auto-setting terminal title.
