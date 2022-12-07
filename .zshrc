@@ -29,6 +29,9 @@ fi
 # allow programs installed via pip to be put on the path
 export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
 
+# needed for git gpg commit signing
+# if still having trouble try killing the gpg agent with
+# killall gpg-agent
 export GPG_TTY=$(tty)
 
 # Uncomment the following line to disable auto-setting terminal title.
@@ -58,6 +61,7 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 # source after .myrc to load theme
 source $ZSH/oh-my-zsh.sh
 
+# hook direnv into shell
 eval "$(direnv hook zsh)"
 
 function zsh_options() {

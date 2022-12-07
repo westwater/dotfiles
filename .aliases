@@ -30,6 +30,9 @@ alias kittyconfig='$EDITOR ~/.config/kitty/kitty.conf'
 alias vault="cd ~/vault"
 alias sbtd="dev= sbt"
 alias ku="kubectl"
+alias sm="WORKSPACE='$HOME/work/hmrc' sm"
+alias work="cd ~/work"
+alias nixconf="$EDITOR /etc/nix/nix.conf"
 # Time aliases
 alias time.now='TZ=UTC date +%FT%T'
 alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'
@@ -64,10 +67,11 @@ alias gdc="git diff --cached"
 alias gpom="git pull origin master"
 alias gco="git checkout"
 alias gcl="git checkout -"
-alias gcm="git checkout master"
+alias gcm="git checkout main"
 alias gcd="git checkout develop"
 alias gca="git commit --amend"
 alias gcan="git commit --amend --no-edit"
+alias gcsan="git commit -S --amend --no-edit"
 alias gcra="git commit --amend --reset-author --no-edit"
 alias grm="git rebase master"
 alias gra="git rebase --abort"
@@ -92,6 +96,7 @@ alias grom="git reset --hard origin/master"
 alias gcpa="git cherry-pick --abort"
 alias branch="git rev-parse --abbrev-ref HEAD"
 alias grp="git rev-parse --short HEAD"
+alias gsu="git stash -u"
 alias lolr='~/dotfiles/scripts/git/remote_branch_menu.sh'
 alias gq='~/dotfiles/scripts/git/git_quick.sh'
 alias gopen='open http://$(git config --get remote.origin.url | sed -E "s/^git@//; s/.git//; s/\:/\//")'

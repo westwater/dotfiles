@@ -18,6 +18,9 @@ export GOROOT="/usr/local/Cellar/go/1.16.3/libexec"
 #
 # path_remove "/usr/bin/java"
 
+# fzf
+export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
+
 # marker
 [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
 
@@ -32,9 +35,9 @@ eval "$(rbenv init -)"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # nvm
-export NVM_DIR="$HOME/.nvm" # to keep nvm installs when upgrading/reinstalling nvm
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # functions
 

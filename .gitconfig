@@ -27,6 +27,7 @@
 	whitespace = red reverse
 [init]
 	templatedir = ~/.git-templates
+	defaultBranch = main
 [rebase]
 	abbreviateCommands = false # if true, rebase-editor won't work
 	autosquash = true
@@ -41,3 +42,5 @@
 	submoduleSummary = true
 [diff]
 	submodule = log
+[user]
+	signingkey = 7A512D6CFDFD3AC3
