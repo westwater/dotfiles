@@ -4,6 +4,9 @@ set -eo pipefail
 
 # Prerequisites
 
+# macs come pre-installed with git so cline this repo
+# git clone https://github.com/westwater dotfiles ~/dotfiles
+
 # Install xcode
 # xcode-select --install
 
