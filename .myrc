@@ -27,6 +27,11 @@ export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 # bat
 export BAT_THEME="1337"
 
+# direnv
+if type "direnv" > /dev/null; then
+	eval "$(direnv hook zsh)"
+fi
+
 # rbenv
 if type "rbenv" > /dev/null; then
 	export PATH="$HOME/.rbenv/bin:$PATH"

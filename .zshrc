@@ -19,15 +19,6 @@ if [ -d /opt/homebrew/bin ]; then
 	export PATH=/opt/homebrew/bin:$PATH
 fi
 
-# pyenv
-# remember to run pyenv rehash after upgrading to change version in shims
-if type "pyenv" > /dev/null; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$(pyenv root)/shims:$PATH"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init --path)"
-fi
-
 # allow programs installed via pip to be put on the path
 export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
 
@@ -61,10 +52,7 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 [[ -s ~/dotfiles/.myrc ]] && source ~/dotfiles/.myrc
 
 # source after .myrc to load theme
-source $ZSH/oh-my-zsh.sh
-
-# hook direnv into shell
-eval "$(direnv hook zsh)"
+[[ -s $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
 
 function zsh_options() {
     PLUGIN_PATH="$HOME/.oh-my-zsh/plugins/"
