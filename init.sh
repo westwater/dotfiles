@@ -13,8 +13,25 @@ set -eo pipefail
 # Install Rosetta
 # softwareupdate --install-rosetta
 
+# Install Kitty terminal on Apple silicon Mac
+# ./kitty.sh
+
+# you can now run this script
+
+# ========================================================================================
+
 # Install brew (there is an m1 version but you need to specify arch before brew everytime)
-# run ./bash.sh
+if command -v brew &> /dev/null
+then
+	echo "brew already installed"
+else
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	# Then add the following to zshrc
+	echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/westwater/.zshrc
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+	# source zshrc
+	source ~/.zshrc
+fi
 
 brew_install() {
     if brew list $1 &>/dev/null; then
@@ -27,9 +44,6 @@ brew_install() {
 # Install micro to start editing files easily
 brew_install micro
 
-# Install Kitty terminal on Apple silicon Mac (need to build from source)
-# run ./kitty.sh
-
 # Add ssh key to github account
 # ssh-keygen -t ed25519 -C "gmwestwater@hotmail.co.uk"
 
@@ -37,7 +51,7 @@ brew_install micro
 # eval "$(ssh-agent -s)"
 
 # Make sure ssh-config file exists
-# [ -f $HOME/.ssh/config ] || { echo "> Creating ssh config"; touch $HOME/.ssh/config; }
+[ -f $HOME/.ssh/config ] || { echo "> Creating ssh config"; touch $HOME/.ssh/config; }
 
 # Add config to ~/.ssh/config
 # Host *
@@ -47,10 +61,6 @@ brew_install micro
 
 # add
 # ssh-add -K ~/.ssh/id_ed25519
-
-
-# Install brew
-command -v brew > /dev/null || { echo "> installing brew"; /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; }
 
 # Install terminal commands
 brew_install diff-so-fancy
