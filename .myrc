@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # My run commands
 
 # global variables
@@ -20,6 +20,9 @@ export GOROOT="/usr/local/Cellar/go/1.16.3/libexec"
 
 # fzf
 export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
+# Replaces reverse searching menu with fzf
+# to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # marker
 [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
@@ -49,6 +52,15 @@ fi
 
 # krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# kubectl
+[[ -s /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+
+# kitty
+bindkey "\e[1;3D"  backward-word # ⌥←
+bindkey "\e[1;3C"  forward-word # ⌥→
+bindkey  "\e[1;9D" beginning-of-line # ⌘→
+bindkey  "\e[1;9C" end-of-line # ⌘←
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

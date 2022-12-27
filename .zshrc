@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # ZSH run commands
 
 # Path to oh-my-zsh installation.
@@ -67,12 +67,6 @@ function zsh_options() {
 # utility
 bindkey -s '^G' ' | grep'
 
-# kitty
-bindkey "\e[1;3D"  backward-word # ⌥←
-bindkey "\e[1;3C"  forward-word # ⌥→
-bindkey  "\e[1;9D" beginning-of-line # ⌘→
-bindkey  "\e[1;9C" end-of-line # ⌘←
-
 # re-source aliases to overwrite PL10K aliases
 [[ -s "$HOME/dotfiles/.aliases" ]] && source "$HOME/dotfiles/.aliases"
 
@@ -81,11 +75,3 @@ bindkey  "\e[1;9C" end-of-line # ⌘←
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 # enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
-
-# Replaces reverse searching menu with fzf
-# to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# shell completions
-[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
-
