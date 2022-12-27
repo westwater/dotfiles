@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -eo pipefail
 
 # Prerequisites
 
@@ -53,18 +53,19 @@ command -v brew > /dev/null || { echo "> installing brew"; /usr/bin/ruby -e "$(c
 
 # Install terminal commands
 brew_install diff-so-fancy
-command -v rbenv > /dev/null || { echo "> installing rbenv"; brew install rbenv; }
-command -v direnv > /dev/null || { echo "> installing direnv"; brew install direnv; }
-command -v exa > /dev/null || { echo "> installing exa"; brew install exa; }
-command -v bat > /dev/null || { echo "> installing bat"; brew install bat; }
-command -v micro > /dev/null || { echo "> installing micro"; brew install micro; }
+brew_install rbenv
+brew_install direnv
+brew_install exa
+brew_install bat
+brew_install micro
 # docker might not intall because of the extension commands
-command -v docker > /dev/null || { echo "> installing docker"; brew install docker; }
-command -v pyenv > /dev/null || { echo "> installing pyenv"; brew install pyenv; }
+brew_install docker
+# command -v sdk fails for some reason in the script and it will always try to install
 command -v sdk > /dev/null || { echo "> installing sdkman"; curl -s "https://get.sdkman.io" | bash; }
+brew_install pyenv
 # run the following after install to get reverse search linked to fzf
 # $(brew --prefix)/opt/fzf/install
-command -v fzf > /dev/null || { echo "> installing fzf"; brew install fzf; }
+brew_install fzf
 
 # Upgrading bash
 # brew install bash
