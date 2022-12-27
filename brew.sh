@@ -11,4 +11,6 @@ else
 	# Then add the following to zshrc
 	echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/westwater/.zshrc
 	eval "$(/opt/homebrew/bin/brew shellenv)"
+	# source zshrc
+	source ~/.zshrc
 fi
