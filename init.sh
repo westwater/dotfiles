@@ -16,21 +16,19 @@ set -eo pipefail
 # Install brew (there is an m1 version but you need to specify arch before brew everytime)
 # run ./bash.sh
 
-function brew_install(){
-	APP="$1"
-	command -v $APP > /dev/null || { echo "> installing $APP"; brew install $APP; }
+brew_install() {
+    if brew list $1 &>/dev/null; then
+        echo "${1} is already installed"
+    else
+        brew install $1
+    fi
 }
 
 # Install micro to start editing files easily
 brew_install micro
 
 # Install Kitty terminal on Apple silicon Mac (need to build from source)
-brew_install pkg-config
-brew_install harfbuzz
-brew_install little-cms2
-# git clone https://github.com/kovidgoyal/kitty && cd kitty
-# make app
-# Move kitty.app to applications folder
+# run ./kitty.sh
 
 # Add ssh key to github account
 # ssh-keygen -t ed25519 -C "gmwestwater@hotmail.co.uk"
