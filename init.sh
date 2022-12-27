@@ -47,14 +47,20 @@ brew_install() {
 # Install micro to start editing files easily
 brew_install micro
 
+# clone vault
+
+
 # Add ssh key to github account
 # ssh-keygen -t ed25519 -C "gmwestwater@hotmail.co.uk"
+
+# add public key to github ssh keys
+# use ~/.ssh/ed25519.pub
 
 # Make sure ssh-agent is up
 # eval "$(ssh-agent -s)"
 
 # Make sure ssh-config file exists
-[ -f $HOME/.ssh/config ] || { echo "> Creating ssh config"; touch $HOME/.ssh/config; }
+# [ -f $HOME/.ssh/config ] || { echo "> Creating ssh config"; touch $HOME/.ssh/config; }
 
 # Add config to ~/.ssh/config
 # Host *
@@ -64,6 +70,9 @@ brew_install micro
 
 # add
 # ssh-add -K ~/.ssh/id_ed25519
+
+# Clone vault
+[ -d $HOME/vault ] || { echo "> Cloning vault"; git clone git@github.com:westwater/vault.git $HOME/vault; }
 
 # Install terminal commands
 brew_install diff-so-fancy
@@ -87,7 +96,7 @@ brew_install fzf
 # make sure to use the following shebang #!/usr/bin/env bash (uses first bash on PATH)
 
 # Install oh-my-zsh
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+[ -d $HOME/.oh-my-zsh ] || sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Install terminal theme
 [ -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ] || { echo "> installing powerlevel10k"; git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k; }
@@ -95,10 +104,6 @@ brew_install fzf
 # Install oh-my-zsh plugins
 [ -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ] || { echo "> installing zsh-autosuggestions"; git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions; }
 [ -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ] || { echo "> installing zsh-syntax-highlighting"; git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; }
-# Clone vault
-
-
-[ -d $HOME/vault ] || { echo "> Cloning vault"; git clone git@github.com:westwater/vault.git $HOME/vault; }
 
 # Install nerd fonts
 
