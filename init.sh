@@ -20,6 +20,9 @@ set -eo pipefail
 
 # ========================================================================================
 
+# symlink zshrc file first
+ln -s $PWD/.zshrc ~/.zshrc
+
 # Install brew (there is an m1 version but you need to specify arch before brew everytime)
 if command -v brew &> /dev/null
 then

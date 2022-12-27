@@ -8,7 +8,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Brew
 if type "brew" > /dev/null; then
-	#eval "$(/opt/homebrew/bin/brew shellenv)"
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Bash (brew)
