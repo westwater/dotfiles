@@ -16,6 +16,12 @@ set -eo pipefail
 # Install Kitty terminal on Apple silicon Mac
 # ./kitty.sh
 
+# Manually install nerd font
+# https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Meslo/M/Regular/complete/Meslo%20LG%20M%20Regular%20Nerd%20Font%20Complete.ttf
+# click download
+# click downloaded file
+# click install font
+
 # you can now run this script
 
 # ========================================================================================
@@ -24,8 +30,8 @@ set -eo pipefail
 [ -d $HOME/.oh-my-zsh ] || sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 rm ~/.zshrc
 
-# symlink zshrc file
-ln -s $PWD/.zshrc ~/.zshrc
+# symlink all files
+./link.sh
 
 # Install terminal theme
 [ -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ] || { echo "> installing powerlevel10k"; git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k; }
@@ -106,7 +112,7 @@ brew_install fzf
 # add /opt/homebrew/bin/bash
 # make sure to use the following shebang #!/usr/bin/env bash (uses first bash on PATH)
 
-# Install nerd fonts
+# Install nerd fonts (this works but need to find font meslo-lg nerd font)
 
 # brew tap homebrew/cask-fonts
 # brew install --cask font-hack-nerd-font 
