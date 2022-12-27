@@ -21,6 +21,9 @@ function brew_install(){
 	command -v $APP > /dev/null || { echo "> installing $APP"; brew install $APP; }
 }
 
+# Install micro to start editing files easily
+brew_install micro
+
 # Install Kitty terminal on Apple silicon Mac (need to build from source)
 brew_install pkg-config
 brew_install harfbuzz
@@ -57,7 +60,6 @@ brew_install rbenv
 brew_install direnv
 brew_install exa
 brew_install bat
-brew_install micro
 # docker might not intall because of the extension commands
 brew_install docker
 # command -v sdk fails for some reason in the script and it will always try to install
