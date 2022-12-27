@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
 # Prerequisites
 
 # Install xcode
@@ -18,8 +22,7 @@
 # brew install little-cms2
 # git clone https://github.com/kovidgoyal/kitty && cd kitty
 # make app
-# Move kitty.app to applications folder
-
+# Move kitty.app to applications folder[115;9u]
 
 # Add ssh key to github account
 # ssh-keygen -t ed25519 -C "gmwestwater@hotmail.co.uk"
@@ -30,7 +33,7 @@
 # Make sure ssh-config file exists
 # [ -f $HOME/.ssh/config ] || { echo "> Creating ssh config"; touch $HOME/.ssh/config; }
 
-# Add config
+# Add config to ~/.ssh/config
 # Host *
 #  AddKeysToAgent yes
 #  UseKeychain yes
@@ -39,12 +42,17 @@
 # add
 # ssh-add -K ~/.ssh/id_ed25519
 
+function brew_install(){
+	APP="$1"
+	command -v $APP > /dev/null || { echo "> installing $APP"; brew install $APP; }
+}
+
 
 # Install brew
-command -v brew > /dev/null || { echo "> installing brew"; brew install diff-so-fancy; /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; }
+command -v brew > /dev/null || { echo "> installing brew"; /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; }
 
 # Install terminal commands
-command -v diff-so-fancy > /dev/null || { echo "> installing diff-so-fancy"; brew install diff-so-fancy; }
+brew_install diff-so-fancy
 command -v rbenv > /dev/null || { echo "> installing rbenv"; brew install rbenv; }
 command -v direnv > /dev/null || { echo "> installing direnv"; brew install direnv; }
 command -v exa > /dev/null || { echo "> installing exa"; brew install exa; }
