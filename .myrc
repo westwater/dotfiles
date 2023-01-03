@@ -75,6 +75,12 @@ export NVM_DIR="$HOME/.nvm"
 # service-manager 
 export WORKSPACE="$HOME/work/hmrc"
 
+# sdkman
+# check versions  - sdk list java
+# install version - sdk install java 19.0.1-amzn 
+export SDKMAN_DIR="/Users/westwater/.sdkman"
+[[ -s "/Users/westwater/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/westwater/.sdkman/bin/sdkman-init.sh"
+
 # functions
 
 # greps the shell commands loaded on startup to find where
@@ -95,7 +101,6 @@ filesToLoad=(
   dotfiles/.extensions
   dotfiles/.pl9k_theme
   vault/secrets
-  .sdkman/bin/sdkman-init.sh
 )
 
 for file in "${filesToLoad[@]}"; do
