@@ -42,6 +42,11 @@ if type "rbenv" > /dev/null; then
 fi
 
 # pyenv
+# list versions    - pyenv install --list
+# install version  - pyenv install 3.11.1
+# set version      - pyenv global 3.11.1
+# 
+# remember to re-source zshrc after setting version globally
 # remember to run pyenv rehash after upgrading to change version in shims
 if type "pyenv" > /dev/null; then
   export PYENV_ROOT="$HOME/.pyenv"
