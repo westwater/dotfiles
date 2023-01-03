@@ -88,6 +88,9 @@ brew_install micro
 # add
 # ssh-add -K ~/.ssh/id_ed25519
 
+# Remember to change the origin to ssh so you can push back any changes to dotfiles
+# git remote set-url origin git@github.com:westwater/dotfiles.git
+
 # Clone vault
 [ -d $HOME/vault ] || { echo "> Cloning vault"; git clone git@github.com:westwater/vault.git $HOME/vault; }
 
