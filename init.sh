@@ -126,3 +126,14 @@ brew_install fzf
 
 # link dotfiles to host directories
 # ./link.sh
+
+# To sign git commits with GPG key
+brew install gnupg
+
+# generate new gpg key
+# gpg --full-generate-key
+# key must use RSA and 4096 and follow prompts 
+# gpg --list-secret-keys --keyid-format=long
+# copy string after 'sec rsa4096/'
+# gpg --armor --export {YOUR_KEY}
+# add key to github
