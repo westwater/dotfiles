@@ -91,6 +91,9 @@ brew_install micro
 # Remember to change the origin to ssh so you can push back any changes to dotfiles
 # git remote set-url origin git@github.com:westwater/dotfiles.git
 
+# Install rebase editor
+# npm install -g rebase-editor
+
 # Clone vault
 [ -d $HOME/vault ] || { echo "> Cloning vault"; git clone git@github.com:westwater/vault.git $HOME/vault; }
 
@@ -137,3 +140,10 @@ brew install gnupg
 # copy string after 'sec rsa4096/'
 # gpg --armor --export {YOUR_KEY}
 # add key to github
+
+# add key to local git
+# git config --global user.signingkey {YOUR_KEY}
+
+# Install nvm
+# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+# nvm install --lts
