@@ -147,3 +147,15 @@ brew install gnupg
 # Install nvm
 # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 # nvm install --lts
+
+# nix
+# install nix
+# sh <(curl -L https://nixos.org/nix/install)
+
+# install nix-darwin
+# nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+# ./result/bin/darwin-installer
+
+# config can be changed at 
+# ~/.nixpkgs/darwin-configuration.nix
+# run darwin-rebuild switch to activate changes

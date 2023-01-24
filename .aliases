@@ -81,6 +81,7 @@ alias gma="git merge --abort"
 alias grob='git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)'
 alias grsob='git reset --soft origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpob='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+alias gpfb='git push -u fork $(git rev-parse --abbrev-ref HEAD)'
 alias gpobf='git push -u origin $(git rev-parse --abbrev-ref HEAD) --force-with-lease'
 alias gpb='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias gpl="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d"
@@ -106,7 +107,6 @@ alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
 alias awsecrlogin='eval $(aws ecr get-login --no-include-email)'
 alias awsconfig='$EDITOR ~/.aws/config'
 alias awscreds='$EDITOR ~/.aws/credentials'
-alias awsp=". _awsp"
 
 port_pid(){
   lsof -n -i4TCP:$1

@@ -18,6 +18,11 @@ export GOROOT="/usr/local/Cellar/go/1.16.3/libexec"
 #
 # path_remove "/usr/bin/java"
 
+# awsp
+# https://github.com/johnnyopao/awsp
+# npm install -g awsp
+alias awsp="source _awsp"
+
 # fzf
 export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 # Replaces reverse searching menu with fzf

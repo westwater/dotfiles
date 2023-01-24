@@ -46,7 +46,7 @@ setopt share_history          # share command history data
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
 ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
-plugins=(zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting prepend-sudo)
 
 # load my run commands
 [[ -s ~/dotfiles/.myrc ]] && source ~/dotfiles/.myrc
@@ -64,7 +64,8 @@ function zsh_options() {
 # ZSH keybinds
 # use showkey -a to identify keystrokes
 # brew install showkey
-# utility
+# alternitavely press ctrl+v and then the key to see unicode
+
 bindkey -s '^G' ' | grep'
 
 # re-source aliases to overwrite PL10K aliases
