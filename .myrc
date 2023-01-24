@@ -72,6 +72,9 @@ bindkey "\e[1;3C"  forward-word # ⌥→
 bindkey  "\e[1;9D" beginning-of-line # ⌘→
 bindkey  "\e[1;9C" end-of-line # ⌘←
 
+# nix
+export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
