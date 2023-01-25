@@ -1,11 +1,18 @@
 { config, pkgs, ... }:
 
 {
+  # run darwin-rebuild switch to reload config
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [ pkgs.vim
-    ];
+  
+  # Apps
+  # `home-manager` currently has issues adding them to `~/Applications`
+  # Issue: https://github.com/nix-community/home-manager/issues/1341
+  environment.systemPackages = with pkgs; [
+    pkgs.vim
+    kitty
+  ];
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
@@ -18,12 +25,11 @@
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true;
 
-  # Apps
-  # `home-manager` currently has issues adding them to `~/Applications`
-  # Issue: https://github.com/nix-community/home-manager/issues/1341
-  environment.systemPackages = with pkgs; [
-    kitty
-  ];
+  nix = {
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
