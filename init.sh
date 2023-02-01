@@ -159,3 +159,6 @@ brew install gnupg
 # config can be changed at 
 # ~/.nixpkgs/darwin-configuration.nix
 # run darwin-rebuild switch to activate changes
+
+# fzf reverse search
+# copy zsh/.fzf.zsh to ~

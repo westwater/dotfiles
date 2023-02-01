@@ -24,6 +24,7 @@ export GOROOT="/usr/local/Cellar/go/1.16.3/libexec"
 alias awsp="source _awsp"
 
 # fzf
+# ctrl + t: search files in cwd using fzf
 export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 # Replaces reverse searching menu with fzf
 # to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install
