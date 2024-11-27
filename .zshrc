@@ -1,6 +1,9 @@
 #!/usr/bin/env zsh
 # ZSH run commands
 
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit 
+
 # Path to oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -80,3 +83,5 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-clou
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source /Users/westwater/.docker/init-zsh.sh || true # Added by Docker Desktop
