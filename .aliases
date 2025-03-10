@@ -33,6 +33,7 @@ alias ku="kubectl"
 alias sm="WORKSPACE='$HOME/work/hmrc' sm"
 alias work="cd ~/work"
 alias nixconf="$EDITOR /etc/nix/nix.conf"
+alias sbtnuke="find . -name target -type d -exec rm -rf {} \;"
 # Time aliases
 alias time.now='TZ=UTC date +%FT%T'
 alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'
@@ -83,6 +84,7 @@ alias grsob='git reset --soft origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpob='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 alias gpfb='git push -u fork $(git rev-parse --abbrev-ref HEAD)'
 alias gpobf='git push -u origin $(git rev-parse --abbrev-ref HEAD) --force-with-lease'
+alias gpobnv='git push -u origin $(git rev-parse --abbrev-ref HEAD) --no-verify'
 alias gpb='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias gpl="git branch --merged | egrep -v '(^\*|master|dev)' | xargs git branch -d"
 alias gl="git lol"

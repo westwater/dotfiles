@@ -37,5 +37,3 @@
 	submoduleSummary = true
 [diff]
 	submodule = log
-[user]
-	signingkey = B15DA7484E4F2893

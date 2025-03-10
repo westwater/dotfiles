@@ -84,4 +84,21 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source /Users/westwater/.docker/init-zsh.sh || true # Added by Docker Desktop
+ # Added by Docker Desktop
+[ -s "/Users/westwater/.docker/init-zsh.sh" ] && source /Users/westwater/.docker/init-zsh.sh || true
+
+source $HOME/.sde/profile/profile.sh
+
+# >>> coursier install directory >>>
+export PATH="$PATH:/Users/westwater/Library/Application Support/Coursier/bin"
+
+# Created by `pipx` on 2025-03-10 22:45:28
+export PATH="$PATH:/Users/westwater/.local/bin"
+
+# fzf
+# moved from myrc as it wasn't loading for some reason
+# ctrl + t: search files in cwd using fzf
+export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
+# Replaces reverse searching menu with fzf
+# to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install
+[ -f "$HOME/.fzf.zsh" ] && source ~/.fzf.zsh

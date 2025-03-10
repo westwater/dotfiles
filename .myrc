@@ -23,13 +23,6 @@ export GOROOT="/usr/local/Cellar/go/1.16.3/libexec"
 # npm install -g awsp
 alias awsp="source _awsp"
 
-# fzf
-# ctrl + t: search files in cwd using fzf
-export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
-# Replaces reverse searching menu with fzf
-# to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # marker
 [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
 
@@ -65,7 +58,9 @@ fi
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # kubectl
-[[ -s /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+if type "kubectl" > /dev/null; then
+  [[ -s /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+fi
 
 # kitty
 bindkey "\e[1;3D"  backward-word # ⌥←
