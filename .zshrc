@@ -49,7 +49,7 @@ setopt share_history          # share command history data
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
 ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
-plugins=(zsh-autosuggestions zsh-syntax-highlighting prepend-sudo)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 # load my run commands
 [[ -s ~/dotfiles/.myrc ]] && source ~/dotfiles/.myrc
@@ -87,7 +87,7 @@ export NVM_DIR="$HOME/.nvm"
  # Added by Docker Desktop
 [ -s "/Users/westwater/.docker/init-zsh.sh" ] && source /Users/westwater/.docker/init-zsh.sh || true
 
-source $HOME/.sde/profile/profile.sh
+[ -s "$HOME/.sde/profile/profile.sh" ] && source $HOME/.sde/profile/profile.sh
 
 # >>> coursier install directory >>>
 export PATH="$PATH:/Users/westwater/Library/Application Support/Coursier/bin"
