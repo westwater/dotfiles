@@ -37,3 +37,5 @@
 	submoduleSummary = true
 [diff]
 	submodule = log
+[url "git@github.com:"]
+	insteadOf = https://github.com/
