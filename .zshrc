@@ -103,3 +103,7 @@ export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 # to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install
 [ -f "$HOME/.fzf.zsh" ] && source ~/.fzf.zsh
 export GOROOT="$(brew --prefix go)/libexec"
+
+# Claude
+# Set memory config / location to .g
+export CLAUDE_CONFIG_DIR=~/.g/.claude
