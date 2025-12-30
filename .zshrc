@@ -104,6 +104,11 @@ export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 [ -f "$HOME/.fzf.zsh" ] && source ~/.fzf.zsh
 export GOROOT="$(brew --prefix go)/libexec"
 
-# Claude
-# Set memory config / location to .g
-export CLAUDE_CONFIG_DIR=~/.g/.claude
+# Claude - dynamic config based on current directory
+claude() {
+    if [ -d ".g/.claude" ]; then
+        CLAUDE_CONFIG_DIR="$(pwd)/.g/.claude" command claude "$@"
+    else
+        command claude "$@"
+    fi
+}
