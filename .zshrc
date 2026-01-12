@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 # ZSH run commands
 
+# Idempotent path helper - only adds if not already present
+path_append() { [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1"; }
+path_prepend() { [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"; }
+
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit 
 
@@ -19,11 +23,11 @@ fi
 # Bash (brew)
 # Add before path to mac bash for /env bash shebang
 if [ -d /opt/homebrew/bin ]; then
-	export PATH=/opt/homebrew/bin:$PATH
+	path_prepend /opt/homebrew/bin
 fi
 
 # allow programs installed via pip to be put on the path
-export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
+path_append "$(python3 -c 'import site; print(site.USER_BASE)')/bin"
 
 # needed for git gpg commit signing
 # if still having trouble try killing the gpg agent with
@@ -80,9 +84,7 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/
 # enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# NVM loaded in .myrc with lazy-loading
 
  # Added by Docker Desktop
 [ -s "/Users/westwater/.docker/init-zsh.sh" ] && source /Users/westwater/.docker/init-zsh.sh || true
@@ -90,10 +92,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$HOME/.sde/profile/profile.sh" ] && source $HOME/.sde/profile/profile.sh
 
 # >>> coursier install directory >>>
-export PATH="$PATH:/Users/westwater/Library/Application Support/Coursier/bin"
+path_append "/Users/westwater/Library/Application Support/Coursier/bin"
 
 # Created by `pipx` on 2025-03-10 22:45:28
-export PATH="$PATH:/Users/westwater/.local/bin"
+path_append "/Users/westwater/.local/bin"
 
 # fzf
 # moved from myrc as it wasn't loading for some reason
