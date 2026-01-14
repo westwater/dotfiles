@@ -29,11 +29,6 @@ alias awsp="source _awsp"
 # bat
 export BAT_THEME="1337"
 
-# direnv
-if type "direnv" > /dev/null; then
-	eval "$(direnv hook zsh)"
-fi
-
 # rbenv
 if type "rbenv" > /dev/null; then
 	path_prepend "$HOME/.rbenv/bin"
@@ -78,10 +73,10 @@ _nvm_lazy_load() {
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 }
-nvm() { _nvm_lazy_load; nvm "$@"; }
-node() { _nvm_lazy_load; node "$@"; }
-npm() { _nvm_lazy_load; npm "$@"; }
-npx() { _nvm_lazy_load; npx "$@"; }
+nvm() { _nvm_lazy_load; command nvm "$@"; }
+node() { _nvm_lazy_load; command node "$@"; }
+npm() { _nvm_lazy_load; command npm "$@"; }
+npx() { _nvm_lazy_load; command npx "$@"; }
 
 # service-manager 
 export WORKSPACE="$HOME/work/hmrc"

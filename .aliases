@@ -2,7 +2,7 @@
 
 #QoL
 # alias src='. ~/.bash_profile'
-alias src='. ~/.zshrc'
+alias src='source ~/.zshrc'
 alias d='docker'
 alias zshrc='$EDITOR ~/.zshrc'
 alias myrc='$EDITOR ~/dotfiles/.myrc'
@@ -104,6 +104,9 @@ alias lolr='~/dotfiles/scripts/git/remote_branch_menu.sh'
 alias gq='~/dotfiles/scripts/git/git_quick.sh'
 alias gopen='open http://$(git config --get remote.origin.url | sed -E "s/^git@//; s/.git//; s/\:/\//")'
 alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
+
+#claude
+alias c='claude'
 
 # aws
 alias awsecrlogin='eval $(aws ecr get-login --no-include-email)'
