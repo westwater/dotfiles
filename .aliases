@@ -55,6 +55,7 @@ alias bloop-stop="brew services stop bloop"
 
 #g
 alias g="~/.g/g.py"
+alias gg="cd ~/.g"
 
 #git
 alias ga="git add -A"
