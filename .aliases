@@ -108,6 +108,9 @@ alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
 
 #claude
 alias c='claude'
+alias cr='claude --resume'
+alias ccc='claude --chrome'
+
 
 # aws
 alias awsecrlogin='eval $(aws ecr get-login --no-include-email)'
