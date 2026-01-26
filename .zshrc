@@ -5,6 +5,21 @@
 path_append() { [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1"; }
 path_prepend() { [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"; }
 
+# SSH agent - reuse existing or start new
+SSH_ENV="$HOME/.ssh-agent.env"
+if [ -f "$SSH_ENV" ]; then
+    source "$SSH_ENV" > /dev/null
+    if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+        eval "$(ssh-agent -s)" > /dev/null
+        echo "export SSH_AUTH_SOCK=$SSH_AUTH_SOCK" > "$SSH_ENV"
+        echo "export SSH_AGENT_PID=$SSH_AGENT_PID" >> "$SSH_ENV"
+    fi
+else
+    eval "$(ssh-agent -s)" > /dev/null
+    echo "export SSH_AUTH_SOCK=$SSH_AUTH_SOCK" > "$SSH_ENV"
+    echo "export SSH_AGENT_PID=$SSH_AGENT_PID" >> "$SSH_ENV"
+fi
+
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit 
 
@@ -84,7 +99,7 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/
 # enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-# NVM loaded in .myrc with lazy-loading
+# NVM loaded in .myrc
 
  # Added by Docker Desktop
 [ -s "/Users/westwater/.docker/init-zsh.sh" ] && source /Users/westwater/.docker/init-zsh.sh || true
