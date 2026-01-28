@@ -1,0 +1,36 @@
+#!/usr/bin/env zsh
+# macOS-specific configuration
+# Sourced only on Darwin systems
+
+# Homebrew (Apple Silicon)
+if [ -d /opt/homebrew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    path_prepend /opt/homebrew/bin
+fi
+
+# Homebrew (Intel Mac)
+if [ -d /usr/local/Homebrew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+# Go (via Homebrew)
+if command -v brew &> /dev/null && [ -d "$(brew --prefix go 2>/dev/null)/libexec" ]; then
+    export GOROOT="$(brew --prefix go)/libexec"
+fi
+
+# YourKit Java Profiler
+if [ -d "/Applications/YourKit-Java-Profiler-2020.7.app" ]; then
+    export YOURKIT_HOME="/Applications/YourKit-Java-Profiler-2020.7.app/Contents/Resources"
+fi
+
+# Docker Desktop
+[ -s "$HOME/.docker/init-zsh.sh" ] && source "$HOME/.docker/init-zsh.sh"
+
+# Coursier (Scala)
+path_append "$HOME/Library/Application Support/Coursier/bin"
+
+# macOS-specific aliases
+[[ -s ~/dotfiles/.macaliases ]] && source ~/dotfiles/.macaliases
+
+# nix-darwin
+export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH

@@ -6,8 +6,6 @@ EDITOR='micro'
 # export JAVA_OPTS="-Dfile.encoding=UTF8 -Xms1G -Xmx4G -XX:ReservedCodeCacheSize=250M -XX:+TieredCompilation -XX:+UseParallelGC -XX:MaxInlineLevel=18"
 export SDKMAN_DIR="$HOME/.sdkman"
 export NODE_PATH=/usr/local/lib/node_modules
-export YOURKIT_HOME="/Applications/YourKit-Java-Profiler-2020.7.app/Contents/Resources"
-export GOROOT="/usr/local/Cellar/go/1.16.3/libexec"
 
 # function path_remove {
 #   # Delete path by parts so we can never accidentally remove sub paths
@@ -53,8 +51,8 @@ fi
 path_prepend "${KREW_ROOT:-$HOME/.krew}/bin"
 
 # kubectl
-if type "kubectl" > /dev/null; then
-  [[ -s /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+if command -v kubectl &> /dev/null; then
+  source <(kubectl completion zsh)
 fi
 
 # kitty
@@ -62,9 +60,6 @@ bindkey "\e[1;3D"  backward-word # ⌥←
 bindkey "\e[1;3C"  forward-word # ⌥→
 bindkey  "\e[1;9D" beginning-of-line # ⌘→
 bindkey  "\e[1;9C" end-of-line # ⌘←
-
-# nix
-export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -80,9 +75,8 @@ export WORKSPACE="$HOME/work/hmrc"
 
 # sdkman
 # check versions  - sdk list java
-# install version - sdk install java 19.0.1-amzn 
-export SDKMAN_DIR="/Users/westwater/.sdkman"
-[[ -s "/Users/westwater/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/westwater/.sdkman/bin/sdkman-init.sh"
+# install version - sdk install java 19.0.1-amzn
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # functions
 

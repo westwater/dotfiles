@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+# Linux-specific configuration
+# Sourced only on Linux systems
+
+# Go (standard Linux path - install via: sudo apt install golang-go)
+if [ -d /usr/local/go ]; then
+    export GOROOT=/usr/local/go
+    path_append "$GOROOT/bin"
+fi
+
+# Coursier (Scala) - Linux path
+path_append "$HOME/.local/share/coursier/bin"
+
+# Linux-specific aliases
+[[ -s ~/dotfiles/.linuxaliases ]] && source ~/dotfiles/.linuxaliases

@@ -27,15 +27,11 @@ DISABLE_AUTO_UPDATE="true"
 # Display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# Brew
-if type "brew" > /dev/null; then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-# Bash (brew)
-# Add before path to mac bash for /env bash shebang
-if [ -d /opt/homebrew/bin ]; then
-	path_prepend /opt/homebrew/bin
+# OS-specific configuration
+if [[ "$(uname)" == "Darwin" ]]; then
+    [[ -s ~/dotfiles/.macrc ]] && source ~/dotfiles/.macrc
+else
+    [[ -s ~/dotfiles/.linuxrc ]] && source ~/dotfiles/.linuxrc
 fi
 
 # allow programs installed via pip to be put on the path
@@ -98,25 +94,18 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-clou
 
 # NVM loaded in .myrc
 
- # Added by Docker Desktop
-[ -s "/Users/westwater/.docker/init-zsh.sh" ] && source /Users/westwater/.docker/init-zsh.sh || true
-
 [ -s "$HOME/.sde/profile/profile.sh" ] && source $HOME/.sde/profile/profile.sh
 
-# >>> coursier install directory >>>
-path_append "/Users/westwater/Library/Application Support/Coursier/bin"
-
-# Created by `pipx` on 2025-03-10 22:45:28
-path_append "/Users/westwater/.local/bin"
+# pipx / local bin
+path_append "$HOME/.local/bin"
 
 # fzf
 # moved from myrc as it wasn't loading for some reason
 # ctrl + t: search files in cwd using fzf
 export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 # Replaces reverse searching menu with fzf
-# to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install
+# to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install (macOS) or apt install fzf (Linux)
 [ -f "$HOME/.fzf.zsh" ] && source ~/.fzf.zsh
-export GOROOT="$(brew --prefix go)/libexec"
 
 # Claude - dynamic config based on current directory
 claude() {

@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+# macOS-specific aliases
+
+# Clipboard (pbcopy/pbpaste)
+alias jwtdp="pbpaste | jwt -D"
+alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tee /dev/tty | pbcopy'
+alias cplc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | pbcopy'
+
+# Time (BSD date uses -v)
+alias time.now='TZ=UTC date +%FT%T'
+alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'
+alias time.1hr.ago='TZ=UTC date -v -1H +%FT%T'
+
+# macOS open command
+alias gopen='open http://$(git config --get remote.origin.url | sed -E "s/^git@//; s/.git//; s/\:/\//")'
+
+# macOS screen path
+alias s="/usr/local/bin/screen"
+
+# bloop (uses brew services)
+alias bloop-start="brew services start bloop"
+alias bloop-stop="brew services stop bloop"
