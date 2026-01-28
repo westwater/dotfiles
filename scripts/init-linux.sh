@@ -23,7 +23,12 @@ apt_install zsh
 apt_install micro
 apt_install git
 apt_install curl
-apt_install diff-so-fancy
+# diff-so-fancy (not in apt, install from GitHub)
+if [ ! -d "$HOME/.diff-so-fancy" ]; then
+    echo "> installing diff-so-fancy"
+    git clone https://github.com/so-fancy/diff-so-fancy.git ~/.diff-so-fancy
+    sudo ln -sf ~/.diff-so-fancy/diff-so-fancy /usr/local/bin/diff-so-fancy
+fi
 apt_install direnv
 apt_install exa
 apt_install bat
