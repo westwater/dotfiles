@@ -121,9 +121,13 @@ export GOROOT="$(brew --prefix go)/libexec"
 # Claude - dynamic config based on current directory
 claude() {
     if [ -d ".g/.claude" ]; then
-        local mcp_args=""
-        [ -f ".g/.claude/mcp.json" ] && mcp_args="--mcp-config .g/.claude/mcp.json"
-        CLAUDE_CONFIG_DIR="$(pwd)/.g/.claude" command claude $mcp_args "$@"
+        local config_dir="$(pwd)/.g/.claude"
+        local mcp_args=()
+        if [ -f "$config_dir/mcp.json" ]; then
+            mcp_args=(--mcp-config "$config_dir/mcp.json")
+            echo "[claude] Found MCP config: $config_dir/mcp.json"
+        fi
+        CLAUDE_CONFIG_DIR="$config_dir" command claude "${mcp_args[@]}" "$@"
     else
         command claude "$@"
     fi
