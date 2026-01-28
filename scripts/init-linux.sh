@@ -32,6 +32,10 @@ fi
 apt_install direnv
 apt_install eza
 apt_install bat
+# bat is installed as batcat on Debian/Ubuntu due to naming conflict
+if command -v batcat &>/dev/null && ! command -v bat &>/dev/null; then
+    sudo ln -sf $(which batcat) /usr/local/bin/bat
+fi
 apt_install fzf
 apt_install gnupg
 apt_install xclip  # for clipboard aliases
