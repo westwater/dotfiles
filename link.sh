@@ -22,8 +22,6 @@ if [ ! -d "$HOME/.oh-my-zsh/plugins" ]; then
     echo "Error: oh-my-zsh not installed. Run ./init.sh first, or install oh-my-zsh manually."
     exit 1
 fi
-ln -sf $PWD/zsh/prepend-sudo $HOME/.oh-my-zsh/plugins/prepend-sudo
-
 # macOS-specific symlinks
 if [[ "$OS" == "Darwin" ]]; then
     # nix-darwin config
