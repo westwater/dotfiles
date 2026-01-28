@@ -45,6 +45,17 @@ if [ -d "$HOME/.pyenv" ]; then
   path_prepend "$PYENV_ROOT/bin"
   path_prepend "$PYENV_ROOT/shims"
   eval "$(pyenv init --path)"
+
+  # prompt to install python if none installed (interactive shells only)
+  if [[ $- == *i* ]] && ! pyenv versions --bare 2>/dev/null | grep -q .; then
+    echo "No Python version installed via pyenv."
+    read -r "reply?Install latest stable Python? [Y/n] "
+    if [[ ! "$reply" =~ ^[Nn]$ ]]; then
+      latest=$(pyenv install --list | grep -E '^\s*3\.[0-9]+\.[0-9]+$' | tail -1 | tr -d ' ')
+      echo "Installing Python $latest..."
+      pyenv install "$latest" && pyenv global "$latest"
+    fi
+  fi
 fi
 
 # krew
