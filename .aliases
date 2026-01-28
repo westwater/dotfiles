@@ -57,6 +57,8 @@ alias bloop-stop="brew services stop bloop"
 alias g="~/.g/g.py"
 alias gg="cd ~/.g"
 
+alias n8n="cd ~/n8n"
+
 #git
 alias ga="git add -A"
 alias gs="git status"
