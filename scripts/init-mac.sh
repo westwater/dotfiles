@@ -11,7 +11,6 @@ echo "Setting up macOS..."
 # - Install xcode: xcode-select --install
 # - Install Rosetta (Apple Silicon): softwareupdate --install-rosetta
 # - Install Kitty terminal: ./kitty.sh
-# - Install nerd font: https://github.com/ryanoasis/nerd-fonts
 
 # Install brew
 if command -v brew &> /dev/null; then
@@ -42,6 +41,9 @@ brew_install docker
 brew_install pyenv
 brew_install fzf
 brew_install gnupg
+
+# Nerd fonts for powerlevel10k
+brew install --cask font-meslo-lg-nerd-font 2>/dev/null || echo "font-meslo-lg-nerd-font already installed"
 
 # sdkman
 command -v sdk > /dev/null || { echo "> installing sdkman"; curl -s "https://get.sdkman.io" | bash; }

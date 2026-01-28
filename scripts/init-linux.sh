@@ -63,6 +63,18 @@ if [ ! -d "$HOME/.rbenv" ]; then
     git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 fi
 
+# Nerd fonts for powerlevel10k (MesloLGS NF)
+FONT_DIR="$HOME/.local/share/fonts"
+if [ ! -f "$FONT_DIR/MesloLGS NF Regular.ttf" ]; then
+    echo "> installing MesloLGS NF fonts"
+    mkdir -p "$FONT_DIR"
+    curl -L -o "$FONT_DIR/MesloLGS NF Regular.ttf" "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+    curl -L -o "$FONT_DIR/MesloLGS NF Bold.ttf" "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
+    curl -L -o "$FONT_DIR/MesloLGS NF Italic.ttf" "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+    curl -L -o "$FONT_DIR/MesloLGS NF Bold Italic.ttf" "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+    fc-cache -f -v
+fi
+
 # sdkman
 command -v sdk > /dev/null || { echo "> installing sdkman"; curl -s "https://get.sdkman.io" | bash; }
 
@@ -75,6 +87,5 @@ fi
 echo ""
 echo "Linux post-install notes:"
 echo "- Log out and back in for zsh to take effect"
-echo "- Install nerd fonts for powerlevel10k: https://github.com/ryanoasis/nerd-fonts"
 echo "- Add SSH key: ssh-keygen -t ed25519 -C 'your@email.com'"
 echo "- GPG signing: gpg --full-generate-key"
