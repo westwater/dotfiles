@@ -119,6 +119,6 @@ sbtgc(){
   done
 }
 
-#exa
+#eza (formerly exa)
 #note: this alias is being overriden by oh-my-zsh aliases
-alias l="exa -la --git --time-style=long-iso --group-directories-first"
+alias l="eza -la --git --time-style=long-iso --group-directories-first"

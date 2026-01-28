@@ -36,7 +36,7 @@ brew_install micro
 brew_install diff-so-fancy
 brew_install rbenv
 brew_install direnv
-brew_install exa
+brew_install eza
 brew_install bat
 brew_install docker
 brew_install pyenv

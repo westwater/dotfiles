@@ -30,7 +30,7 @@ if [ ! -d "$HOME/.diff-so-fancy" ]; then
     sudo ln -sf ~/.diff-so-fancy/diff-so-fancy /usr/local/bin/diff-so-fancy
 fi
 apt_install direnv
-apt_install exa
+apt_install eza
 apt_install bat
 apt_install fzf
 apt_install gnupg
