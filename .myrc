@@ -40,10 +40,10 @@ fi
 # 
 # remember to re-source zshrc after setting version globally
 # remember to run pyenv rehash after upgrading to change version in shims
-if type "pyenv" > /dev/null; then
+if [ -d "$HOME/.pyenv" ]; then
   export PYENV_ROOT="$HOME/.pyenv"
-  path_prepend "$(pyenv root)/shims"
   path_prepend "$PYENV_ROOT/bin"
+  path_prepend "$PYENV_ROOT/shims"
   eval "$(pyenv init --path)"
 fi
 
