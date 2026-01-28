@@ -10,6 +10,22 @@ echo "Detected OS: $OS"
 # Common setup (works on both macOS and Linux)
 # ========================================================================================
 
+# Check if zsh is installed, offer to install if not
+if ! command -v zsh &>/dev/null; then
+    read -p "Zsh is not installed. Would you like to install it? [Y/n] " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Nn]$ ]]; then
+        echo "Zsh is required. Exiting."
+        exit 1
+    fi
+    echo "Installing zsh..."
+    if [[ "$OS" == "Darwin" ]]; then
+        brew install zsh
+    elif [[ "$OS" == "Linux" ]]; then
+        sudo apt update && sudo apt install -y zsh
+    fi
+fi
+
 # Install oh-my-zsh (this will overwrite your zshrc)
 [ -d $HOME/.oh-my-zsh ] || sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 rm -f ~/.zshrc
