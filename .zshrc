@@ -20,9 +20,6 @@ else
     echo "export SSH_AGENT_PID=$SSH_AGENT_PID" >> "$SSH_ENV"
 fi
 
-autoload -U +X compinit && compinit
-autoload -U +X bashcompinit && bashcompinit 
-
 # Path to oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -124,8 +121,11 @@ export GOROOT="$(brew --prefix go)/libexec"
 # Claude - dynamic config based on current directory
 claude() {
     if [ -d ".g/.claude" ]; then
-        CLAUDE_CONFIG_DIR="$(pwd)/.g/.claude" command claude "$@"
+        local mcp_args=""
+        [ -f ".g/.claude/mcp.json" ] && mcp_args="--mcp-config .g/.claude/mcp.json"
+        CLAUDE_CONFIG_DIR="$(pwd)/.g/.claude" command claude $mcp_args "$@"
     else
         command claude "$@"
     fi
 }
+alias note='~/.g/note'
