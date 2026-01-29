@@ -122,3 +122,12 @@ sbtgc(){
 #eza (formerly exa)
 #note: this alias is being overriden by oh-my-zsh aliases
 alias l="eza -la --git --time-style=long-iso --group-directories-first"
+
+# p10k update
+p10k-update() {
+  local p10k_dir="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+  echo "Updating powerlevel10k..."
+  (cd "$p10k_dir" && git pull origin master)
+  rm -rf ~/.cache/p10k-*
+  echo "Cache cleared. Restart your shell to apply changes."
+}

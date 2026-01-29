@@ -114,3 +114,6 @@ filesToLoad=(
 for file in "${filesToLoad[@]}"; do
   [[ -s "$HOME/$file" ]] && source "$HOME/$file"
 done
+
+# check for p10k updates (background, once per day)
+[[ -s "$HOME/dotfiles/scripts/check-p10k-updates.sh" ]] && source "$HOME/dotfiles/scripts/check-p10k-updates.sh"

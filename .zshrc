@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 #!/usr/bin/env zsh
 # ZSH run commands
 
@@ -12,7 +5,7 @@ fi
 path_append() { [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1"; }
 path_prepend() { [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"; }
 
-# SSH agent - reuse existing or start new
+# SSH agent - reuse existing or start new (must be BEFORE instant prompt)
 SSH_ENV="$HOME/.ssh-agent.env"
 if [ -f "$SSH_ENV" ]; then
     source "$SSH_ENV" > /dev/null
@@ -25,6 +18,13 @@ else
     eval "$(ssh-agent -s)" > /dev/null
     echo "export SSH_AUTH_SOCK=$SSH_AUTH_SOCK" > "$SSH_ENV"
     echo "export SSH_AGENT_PID=$SSH_AGENT_PID" >> "$SSH_ENV"
+fi
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # Path to oh-my-zsh installation.

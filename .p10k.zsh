@@ -423,9 +423,9 @@
     fi
 
     # ⇣ if behind the remote (black, no count).
-    (( VCS_STATUS_COMMITS_BEHIND )) && res+="%F{black}⇣%f"
+    (( VCS_STATUS_COMMITS_BEHIND )) && res+="%F{black}%f"
     # ⇡ if ahead of the remote (black, no count).
-    (( VCS_STATUS_COMMITS_AHEAD  )) && res+="%F{black}⇡%f"
+    (( VCS_STATUS_COMMITS_AHEAD  )) && res+="%F{black}%f"
     # ⇠ if behind the push remote.
     (( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+="%F{black}⇠%f"
     # ⇢ if ahead of the push remote.
@@ -1688,7 +1688,7 @@
   #   - verbose: Enable instant prompt and print a warning when detecting console output during
   #              zsh initialization. Choose this if you've never tried instant prompt, haven't
   #              seen the warning, or if you are unsure what this all means.
-  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
 
   # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
   # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
