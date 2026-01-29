@@ -25,11 +25,11 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    ssh_indicator           # custom SSH session indicator
     root_indicator          # root user indicator
     dir_writable            # directory write permission indicator
     dir                     # current directory
     vcs                     # git status
+    ssh_indicator           # custom SSH session indicator
     # =========================[ Line #2 ]=========================
     newline                 # \n
     # prompt_char           # prompt symbol
@@ -923,15 +923,15 @@
 
   #################################[ ssh_indicator: SSH session marker ]#################################
   # Custom segment that shows only when in an SSH session.
-  # Shows "SSH user@hostname" with orange background.
+  # Shows "SSH user@hostname" with grey background, positioned after dir/vcs.
   function prompt_ssh_indicator() {
     [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]] || return
-    p10k segment -f 0 -b 208 -i $'\uF489' -t '%n@%m'
+    p10k segment -f 255 -b 240 -i $'\uF489' -t '%n@%m'
   }
   # Instant prompt support - define the same function for instant prompt cache.
   function instant_prompt_ssh_indicator() {
     [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]] || return
-    p10k segment -f 0 -b 208 -i $'\uF489' -t '%n@%m'
+    p10k segment -f 255 -b 240 -i $'\uF489' -t '%n@%m'
   }
 
   ###[ virtualenv: python virtual environment (https://docs.python.org/3/library/venv.html) ]###
