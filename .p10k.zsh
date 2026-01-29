@@ -423,27 +423,25 @@
     fi
 
     # ⇣ if behind the remote (black, no count).
-    (( VCS_STATUS_COMMITS_BEHIND )) && res+=" %F{black}⇣%f"
+    (( VCS_STATUS_COMMITS_BEHIND )) && res+="%F{black}⇣%f"
     # ⇡ if ahead of the remote (black, no count).
-    (( VCS_STATUS_COMMITS_AHEAD && !VCS_STATUS_COMMITS_BEHIND )) && res+=" "
     (( VCS_STATUS_COMMITS_AHEAD  )) && res+="%F{black}⇡%f"
     # ⇠ if behind the push remote.
-    (( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" %F{black}⇠%f"
-    (( VCS_STATUS_PUSH_COMMITS_AHEAD && !VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" "
+    (( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+="%F{black}⇠%f"
     # ⇢ if ahead of the push remote.
     (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="%F{black}⇢%f"
     # * if have stashes (black, no count).
-    (( VCS_STATUS_STASHES        )) && res+=" %F{black}*%f"
+    (( VCS_STATUS_STASHES        )) && res+="%F{black}*%f"
     # 'merge' if the repo is in an unusual state.
     [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
     # ✖ if have merge conflicts (black, no count).
-    (( VCS_STATUS_NUM_CONFLICTED )) && res+=" %F{black}✖%f"
+    (( VCS_STATUS_NUM_CONFLICTED )) && res+="%F{black}✖%f"
     # ✚ if have staged changes (black, no count).
-    (( VCS_STATUS_NUM_STAGED     )) && res+=" %F{black}  %f"
+    (( VCS_STATUS_NUM_STAGED     )) && res+="%F{black}  %f"
     # ● if have unstaged changes (black, no count).
-    (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" %F{black}  %f"
+    (( VCS_STATUS_NUM_UNSTAGED   )) && res+="%F{black}  %f"
     # ? if have untracked files (black, no count).
-    (( VCS_STATUS_NUM_UNTRACKED  )) && res+=" %F{black}  %f"
+    (( VCS_STATUS_NUM_UNTRACKED  )) && res+="%F{black}  %f"
     # "─" if the number of unstaged files is unknown. This can happen due to
     # POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY (see below) being set to a non-negative number lower
     # than the number of files in the Git index, or due to bash.showDirtyState being set to false
