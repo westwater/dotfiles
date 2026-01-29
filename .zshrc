@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #!/usr/bin/env zsh
 # ZSH run commands
 
@@ -35,7 +42,12 @@ else
 fi
 
 # allow programs installed via pip to be put on the path
-path_append "$(python3 -c 'import site; print(site.USER_BASE)')/bin"
+# Cache python user base to avoid slow python3 call on every shell startup
+PYTHON_USER_BASE_CACHE="$HOME/.cache/python_user_base"
+if [[ ! -f "$PYTHON_USER_BASE_CACHE" ]] || [[ $(find "$PYTHON_USER_BASE_CACHE" -mtime +7 2>/dev/null) ]]; then
+  python3 -c 'import site; print(site.USER_BASE)' > "$PYTHON_USER_BASE_CACHE" 2>/dev/null
+fi
+[[ -f "$PYTHON_USER_BASE_CACHE" ]] && path_append "$(cat "$PYTHON_USER_BASE_CACHE")/bin"
 
 # needed for git gpg commit signing
 # if still having trouble try killing the gpg agent with
@@ -123,3 +135,6 @@ claude() {
     fi
 }
 alias note='~/.g/note'
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -107,7 +107,7 @@ filesToLoad=(
   dotfiles/scripts/colours.sh
   dotfiles/.aliases
   dotfiles/.extensions
-  dotfiles/.pl9k_theme
+  # dotfiles/.pl9k_theme  # replaced by .p10k.zsh (sourced at end of .zshrc)
   vault/secrets
 )
 

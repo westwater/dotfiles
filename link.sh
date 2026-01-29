@@ -8,6 +8,7 @@ OS="$(uname)"
 # Common symlinks (both platforms)
 ln -sf $PWD/.zshrc ~
 ln -sf $PWD/.gitconfig ~
+ln -sf $PWD/.p10k.zsh ~
 
 # Kitty terminal config
 mkdir -p $HOME/.config/kitty
