@@ -182,12 +182,11 @@
   ################################[ prompt_char: prompt symbol ]################################
   # Transparent background.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
-  # Green prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=76
-  # Red prompt symbol if the last command failed.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=196
-  # Default prompt symbol.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
+  # Blue prompt symbol (matches main prompt style).
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=blue
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=blue
+  # Default prompt symbol - blue arrows matching main prompt.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION=$'\uF460'
   # Prompt symbol in command vi mode.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
   # Prompt symbol in visual vi mode.
@@ -382,6 +381,8 @@
     local   modified='%0F' # black foreground
     local  untracked='%0F' # black foreground
     local conflicted='%1F' # red foreground
+    local arrow_down=$'\U000F0CDC' 
+    local   arrow_up=$'\U000F0CE2'   
 
     local res
 
@@ -391,7 +392,7 @@
       # Otherwise show the first 12 … the last 12.
       # Tip: To always show local branch name in full without truncation, delete the next line.
       (( $#branch > 32 )) && branch[13,-13]="…"  # <-- this line
-      res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}${branch//\%/%%}"
+      res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}${branch//\%/%%} "
     fi
 
     if [[ -n $VCS_STATUS_TAG
@@ -422,26 +423,27 @@
       res+=" ${modified}wip"
     fi
 
-    # ⇣ if behind the remote (black, no count).
-    (( VCS_STATUS_COMMITS_BEHIND )) && res+="%F{black}%f"
-    # ⇡ if ahead of the remote (black, no count).
-    (( VCS_STATUS_COMMITS_AHEAD  )) && res+="%F{black}%f"
+    
     # ⇠ if behind the push remote.
     (( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+="%F{black}⇠%f"
     # ⇢ if ahead of the push remote.
     (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="%F{black}⇢%f"
     # * if have stashes (black, no count).
-    (( VCS_STATUS_STASHES        )) && res+="%F{black}*%f"
+    (( VCS_STATUS_STASHES        )) && res+="%F{black} %f"
     # 'merge' if the repo is in an unusual state.
     [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
     # ✖ if have merge conflicts (black, no count).
     (( VCS_STATUS_NUM_CONFLICTED )) && res+="%F{black}✖%f"
     # ✚ if have staged changes (black, no count).
-    (( VCS_STATUS_NUM_STAGED     )) && res+="%F{black}  %f"
+    (( VCS_STATUS_NUM_STAGED     )) && res+="%F{black} %f"
     # ● if have unstaged changes (black, no count).
-    (( VCS_STATUS_NUM_UNSTAGED   )) && res+="%F{black}  %f"
+    (( VCS_STATUS_NUM_UNSTAGED   )) && res+="%F{black} %f"
     # ? if have untracked files (black, no count).
-    (( VCS_STATUS_NUM_UNTRACKED  )) && res+="%F{black}  %f"
+    (( VCS_STATUS_NUM_UNTRACKED  )) && res+="%F{black} %f"
+    # ⇣ if behind the remote.
+    (( VCS_STATUS_COMMITS_BEHIND )) && res+="%F{black}${arrow_down} ${VCS_STATUS_COMMITS_BEHIND} %f"
+    # ⇡ if ahead of the remote.
+    (( VCS_STATUS_COMMITS_AHEAD  )) && res+="%F{black}${arrow_up} ${VCS_STATUS_COMMITS_AHEAD} %f"
     # "─" if the number of unstaged files is unknown. This can happen due to
     # POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY (see below) being set to a non-negative number lower
     # than the number of files in the Git index, or due to bash.showDirtyState being set to false
