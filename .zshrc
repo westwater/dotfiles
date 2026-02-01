@@ -119,21 +119,8 @@ export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 # to get .fzf.zsh file, run $(brew --prefix)/opt/fzf/install (macOS) or apt install fzf (Linux)
 [ -f "$HOME/.fzf.zsh" ] && source ~/.fzf.zsh
 
-# Claude - dynamic config based on current directory, global settings always loaded
-claude() {
-    local settings_args=(--settings ~/.g/global/settings.json)
-    if [ -d ".g/.claude" ]; then
-        local config_dir="$(pwd)/.g/.claude"
-        local mcp_args=()
-        if [ -f "$config_dir/mcp.json" ]; then
-            mcp_args=(--mcp-config "$config_dir/mcp.json")
-            echo "[claude] Found MCP config: $config_dir/mcp.json"
-        fi
-        CLAUDE_CONFIG_DIR="$config_dir" command claude "${settings_args[@]}" "${mcp_args[@]}" "$@"
-    else
-        command claude "${settings_args[@]}" "$@"
-    fi
-}
+# Claude - wrapper for dynamic config loading
+claude() { ~/dotfiles/claude-wrapper.sh "$@"; }
 alias note='~/.g/note'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
