@@ -33,30 +33,16 @@ if type "rbenv" > /dev/null; then
 	eval "$(rbenv init -)"
 fi
 
-# pyenv
-# list versions    - pyenv install --list
-# install version  - pyenv install 3.11.1
-# set version      - pyenv global 3.11.1
-# 
-# remember to re-source zshrc after setting version globally
-# remember to run pyenv rehash after upgrading to change version in shims
-if [ -d "$HOME/.pyenv" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  path_prepend "$PYENV_ROOT/bin"
-  path_prepend "$PYENV_ROOT/shims"
-  eval "$(pyenv init --path)"
-
-  # prompt to install python if none installed (interactive shells only)
-  if [[ $- == *i* ]] && ! pyenv versions --bare 2>/dev/null | grep -q .; then
-    echo "No Python version installed via pyenv."
-    read -r "reply?Install latest stable Python? [Y/n] "
-    if [[ ! "$reply" =~ ^[Nn]$ ]]; then
-      latest=$(pyenv install --list | grep -E '^\s*3\.[0-9]+\.[0-9]+$' | tail -1 | tr -d ' ')
-      echo "Installing Python $latest..."
-      pyenv install "$latest" && pyenv global "$latest"
-    fi
-  fi
-fi
+# uv (python version/package manager)
+# uv replaces pyenv, pip, pipx, and virtualenv
+# list versions    - uv python list
+# install version  - uv python install 3.12
+# install tool     - uv tool install <package>
+# run in project   - uv run python script.py
+#
+# Python symlinks are in ~/.local/bin/ (created by uv python install)
+# Tools are in ~/.local/share/uv/tools/ with symlinks in ~/.local/bin/
+path_prepend "$HOME/.local/bin"
 
 # krew
 path_prepend "${KREW_ROOT:-$HOME/.krew}/bin"

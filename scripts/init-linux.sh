@@ -40,24 +40,24 @@ apt_install fzf
 apt_install gnupg
 apt_install xclip  # for clipboard aliases
 
-# pyenv dependencies and install
-apt_install build-essential
-apt_install libssl-dev
-apt_install zlib1g-dev
-apt_install libbz2-dev
-apt_install libreadline-dev
-apt_install libsqlite3-dev
-apt_install libncursesw5-dev
-apt_install xz-utils
-apt_install tk-dev
-apt_install libxml2-dev
-apt_install libxmlsec1-dev
-apt_install libffi-dev
-apt_install liblzma-dev
+# uv (Python version/package manager)
+if ! command -v uv &>/dev/null; then
+    echo "> installing uv"
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
 
-if [ ! -d "$HOME/.pyenv" ]; then
-    echo "> installing pyenv"
-    curl https://pyenv.run | bash
+# Install Python via uv and create symlinks
+if command -v uv &>/dev/null; then
+    if ! uv python list --only-installed 2>/dev/null | grep -q "cpython-3.12"; then
+        echo "> installing Python via uv"
+        uv python install 3.11 3.12
+    fi
+    # Create python/python3 symlinks if not present
+    if [ ! -L "$HOME/.local/bin/python" ]; then
+        mkdir -p "$HOME/.local/bin"
+        ln -sf "$HOME/.local/bin/python3.12" "$HOME/.local/bin/python3"
+        ln -sf "$HOME/.local/bin/python3.12" "$HOME/.local/bin/python"
+    fi
 fi
 
 # rbenv
