@@ -21,7 +21,6 @@ fi
 # Build mcp args - global first, then local
 mcp_args=()
 if [ -f "$GLOBAL_MCP" ]; then
-    echo "[claude] Found global mcp.json at $GLOBAL_MCP"
     mcp_args=(--mcp-config "$GLOBAL_MCP")
 else
     echo "[claude] No global mcp.json at $GLOBAL_MCP"
