@@ -47,10 +47,7 @@ path_prepend "$HOME/.local/bin"
 # krew
 path_prepend "${KREW_ROOT:-$HOME/.krew}/bin"
 
-# kubectl
-if command -v kubectl &> /dev/null; then
-  source <(kubectl completion zsh)
-fi
+# kubectl completion loaded in .zshrc after compinit
 
 # kitty
 bindkey "\e[1;3D"  backward-word # ⌥←

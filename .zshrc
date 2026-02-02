@@ -81,6 +81,11 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 # source after .myrc to load theme
 [[ -s $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
 
+# kubectl completion (must be after oh-my-zsh loads compinit)
+if command -v kubectl &> /dev/null; then
+  source <(kubectl completion zsh)
+fi
+
 function zsh_options() {
     PLUGIN_PATH="$HOME/.oh-my-zsh/plugins/"
     for plugin in $plugins; do
