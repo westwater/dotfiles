@@ -8,6 +8,15 @@
 GLOBAL_SETTINGS="$HOME/.g/global/settings.json"
 GLOBAL_MCP="$HOME/.g/global/mcp.json"
 
+# Warn if not in ~/.g and no .g/ directory
+if [ "$(pwd)" != "$HOME/.g" ] && [ ! -d ".g" ]; then
+    echo "[claude] Warning: running claude with no .g/ - are you sure? (y/N)"
+    read -r response
+    if [[ ! "$response" =~ ^[Yy]$ ]]; then
+        exit 0
+    fi
+fi
+
 settings_args=(--settings "$GLOBAL_SETTINGS")
 config_dir=""
 
