@@ -41,6 +41,14 @@ brew_install docker
 brew_install uv
 brew_install fzf
 brew_install gnupg
+brew_install pinentry-mac
+
+# Configure GPG to use pinentry-mac (GUI passphrase prompts)
+if [ ! -f "$HOME/.gnupg/gpg-agent.conf" ] || ! grep -q "pinentry-program" "$HOME/.gnupg/gpg-agent.conf"; then
+    mkdir -p "$HOME/.gnupg"
+    echo "pinentry-program /opt/homebrew/bin/pinentry-mac" >> "$HOME/.gnupg/gpg-agent.conf"
+    gpgconf --kill gpg-agent 2>/dev/null || true
+fi
 
 # Nerd fonts for powerlevel10k
 brew install --cask font-meslo-lg-nerd-font 2>/dev/null || echo "font-meslo-lg-nerd-font already installed"
