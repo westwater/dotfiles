@@ -98,6 +98,7 @@ alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
 alias c='claude'
 alias cr='claude --resume'
 alias cch='claude --chrome'
+alias cchr='claude --chrome --resume'
 
 
 # aws
