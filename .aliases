@@ -44,7 +44,7 @@ alias g="~/.g/g.py"
 alias gg="cd ~/.g"
 
 alias n8n="cd ~/n8n"
-alias gdrive="cd ~/google-drive"
+alias accountant="cd ~/accountant"
 
 #git
 alias ga="git add -A"
