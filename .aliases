@@ -96,6 +96,7 @@ alias gq='~/dotfiles/scripts/git/git_quick.sh'
 alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
 
 alias sbtn='~/.sdkman/candidates/sbt/current/bin/sbtn-x86_64-apple-darwin'
+alias sbtn-killall='pkill -f "sbt-launch.jar --detach-stdio"'
 
 #claude
 alias c='claude'
