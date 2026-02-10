@@ -5,6 +5,7 @@
 alias jwtdp="xclip -selection clipboard -o | jwt -D"
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tee /dev/tty | xclip -selection clipboard'
 alias cplc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | xclip -selection clipboard'
+alias pwdcp='pwd | tr -d "\n" | xclip -selection clipboard'
 
 # Time (GNU date uses -d)
 alias time.now='TZ=UTC date +%FT%T'

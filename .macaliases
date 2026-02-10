@@ -5,6 +5,7 @@
 alias jwtdp="pbpaste | jwt -D"
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tee /dev/tty | pbcopy'
 alias cplc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | pbcopy'
+alias pwdcp='pwd | tr -d "\n" | pbcopy'
 
 # Time (BSD date uses -v)
 alias time.now='TZ=UTC date +%FT%T'
