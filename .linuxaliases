@@ -13,7 +13,7 @@ alias time.5.mins.ago='TZ=UTC date -d "5 minutes ago" +%FT%T'
 alias time.1hr.ago='TZ=UTC date -d "1 hour ago" +%FT%T'
 
 # Linux open command
-alias gopen='xdg-open http://$(git config --get remote.origin.url | sed -E "s/^git@//; s/.git//; s/\:/\//")'
+alias gopen='xdg-open $(git config --get remote.origin.url | sed -E "s|^git@([^:]+):|https://\1/|; s|\.git$||")'
 
 # Linux screen
 alias s="screen"

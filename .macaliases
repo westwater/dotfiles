@@ -13,7 +13,7 @@ alias time.5.mins.ago='TZ=UTC date -v -5M +%FT%T'
 alias time.1hr.ago='TZ=UTC date -v -1H +%FT%T'
 
 # macOS open command
-alias gopen='open http://$(git config --get remote.origin.url | sed -E "s/^git@//; s/.git//; s/\:/\//")'
+alias gopen='open $(git config --get remote.origin.url | sed -E "s|^git@([^:]+):|https://\1/|; s|\.git$||")'
 
 # macOS screen path
 alias s="/usr/local/bin/screen"
