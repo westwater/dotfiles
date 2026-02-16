@@ -14,6 +14,9 @@ ln -sf $PWD/.p10k.zsh ~
 mkdir -p $HOME/.config/kitty
 ln -sf $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
 
+# Neovim config
+ln -sfn $PWD/nvim $HOME/.config/nvim
+
 # sbt config
 mkdir -p $HOME/.sbt/1.0
 ln -sf $PWD/global.sbt $HOME/.sbt/1.0/global.sbt
