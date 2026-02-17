@@ -32,7 +32,7 @@ brew_install() {
 
 # Install tools via brew
 brew_install micro
-brew_install diff-so-fancy
+brew_install git-delta
 brew_install rbenv
 brew_install direnv
 brew_install eza

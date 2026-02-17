@@ -23,11 +23,13 @@ apt_install zsh
 apt_install micro
 apt_install git
 apt_install curl
-# diff-so-fancy (not in apt, install from GitHub)
-if [ ! -d "$HOME/.diff-so-fancy" ]; then
-    echo "> installing diff-so-fancy"
-    git clone https://github.com/so-fancy/diff-so-fancy.git ~/.diff-so-fancy
-    sudo ln -sf ~/.diff-so-fancy/diff-so-fancy /usr/local/bin/diff-so-fancy
+# delta (git pager with syntax highlighting)
+if ! command -v delta &>/dev/null; then
+    echo "> installing delta"
+    DELTA_VERSION=$(curl -s https://api.github.com/repos/dandavison/delta/releases/latest | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4)
+    curl -L -o /tmp/delta.deb "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
+    sudo dpkg -i /tmp/delta.deb
+    rm /tmp/delta.deb
 fi
 apt_install direnv
 apt_install eza
