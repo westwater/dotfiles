@@ -1,0 +1,6 @@
+{
+    "Alt-/": "lua:comment.comment",
+    "CtrlP": "command:palettero",
+    "CtrlSpace": "command:palettero",
+    "CtrlUnderscore": "lua:comment.comment"
+}

@@ -17,6 +17,9 @@ ln -sf $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
 # Neovim config
 ln -sfn $PWD/nvim $HOME/.config/nvim
 
+# Micro editor config
+ln -sfn $PWD/micro $HOME/.config/micro
+
 # sbt config
 mkdir -p $HOME/.sbt/1.0
 ln -sf $PWD/global.sbt $HOME/.sbt/1.0/global.sbt
