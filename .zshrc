@@ -115,6 +115,7 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-clou
 
 # pipx / local bin
 path_append "$HOME/.local/bin"
+path_append "/usr/local/bin"
 
 # fzf
 # moved from myrc as it wasn't loading for some reason
