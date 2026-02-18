@@ -100,3 +100,6 @@ done
 
 # check for p10k updates (background, once per day)
 [[ -s "$HOME/dotfiles/scripts/check-p10k-updates.sh" ]] && source "$HOME/dotfiles/scripts/check-p10k-updates.sh"
+
+# version checker (run 'versions' to check for tool updates)
+[[ -s "$HOME/dotfiles/scripts/versions.sh" ]] && source "$HOME/dotfiles/scripts/versions.sh"
