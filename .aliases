@@ -40,8 +40,9 @@ weather(){ curl http://wttr.in/$1 ; }
 alias awswho="aws configure list"
 
 #g
-alias g="~/.g/g.py"
+alias g="~/.g/g"
 alias gg="cd ~/.g"
+
 
 alias n8n="cd ~/n8n"
 alias accountant="cd ~/accountant"
