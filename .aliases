@@ -55,6 +55,7 @@ alias gf="git fetch"
 alias gd="git diff"
 alias gp="git pull"
 alias gpr="git pull --rebase"
+alias gpras="git pull --rebase --autostash"
 alias gd1="git diff @~1"
 alias gdc="git diff --cached"
 alias gpom="git pull origin master"
@@ -94,8 +95,10 @@ alias gcpa="git cherry-pick --abort"
 alias branch="git rev-parse --abbrev-ref HEAD"
 alias grp="git rev-parse --short HEAD"
 alias gsu="git stash -u"
+
 alias lolr='~/dotfiles/scripts/git/remote_branch_menu.sh'
 alias gq='~/dotfiles/scripts/git/git_quick.sh'
+
 alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
 
 alias sbtn='~/.sdkman/candidates/sbt/current/bin/sbtn-x86_64-apple-darwin'
