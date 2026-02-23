@@ -102,7 +102,7 @@ alias gq='~/dotfiles/scripts/git/git_quick.sh'
 alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
 
 alias sbtn='~/.sdkman/candidates/sbt/current/bin/sbtn-x86_64-apple-darwin'
-sbtn-killall() {
+function sbtn-killall() {
   local pids
   pids=$(pgrep -f "sbt-launch.jar --detach-stdio")
   if [[ -z "$pids" ]]; then
