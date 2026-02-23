@@ -102,7 +102,18 @@ alias gq='~/dotfiles/scripts/git/git_quick.sh'
 alias sbtaliases='$EDITOR ~/.sbt/1.0/global.sbt'
 
 alias sbtn='~/.sdkman/candidates/sbt/current/bin/sbtn-x86_64-apple-darwin'
-alias sbtn-killall='pkill -f "sbt-launch.jar --detach-stdio"'
+sbtn-killall() {
+  local pids
+  pids=$(pgrep -f "sbt-launch.jar --detach-stdio")
+  if [[ -z "$pids" ]]; then
+    echo "No sbtn processes found"
+    return
+  fi
+  echo "$pids" | while read -r pid; do
+    echo "Killing sbtn process $pid: $(ps -o args= -p "$pid")"
+  done
+  kill $pids
+}
 
 #claude
 alias c='claude'
