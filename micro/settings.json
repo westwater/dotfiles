@@ -1,4 +1,6 @@
 {
     "colorscheme": "atom-dark",
-    "diffgutter": true
+    "diffgutter": true,
+    "softwrap": true,
+    "wordwrap": true
 }
