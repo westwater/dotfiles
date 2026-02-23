@@ -114,6 +114,7 @@ sbtn-killall() {
   done
   kill $pids
 }
+alias ssbtn='SBT_OPTS="-Xms512M -Xmx4098M -Xss1M -XX:+UseG1GC" sbtn'
 
 #claude
 alias c='claude'
