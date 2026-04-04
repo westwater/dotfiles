@@ -40,7 +40,7 @@ if [ -n "$config_dir" ] && [ -f "$config_dir/mcp.json" ]; then
 fi
 
 if [ -n "$config_dir" ]; then
-    CLAUDE_CONFIG_DIR="$config_dir" command claude --enable-auto-mode "${settings_args[@]}" "${mcp_args[@]}" "$@"
+    CLAUDE_CONFIG_DIR="$config_dir" command claude "${settings_args[@]}" "${mcp_args[@]}" "$@"
 else
-    command claude --enable-auto-mode "${settings_args[@]}" "${mcp_args[@]}" "$@"
+    command claude "${settings_args[@]}" "${mcp_args[@]}" "$@"
 fi
