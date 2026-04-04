@@ -121,6 +121,7 @@ alias c='claude'
 alias cr='claude --resume'
 alias cch='claude --chrome'
 alias cchr='claude --chrome --resume'
+ch() { claude --channels plugin:telegram@claude-plugins-official "$@"; }
 
 
 # aws
