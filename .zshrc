@@ -102,6 +102,7 @@ bindkey -s '^G' ' | grep'
 
 # re-source aliases to overwrite PL10K aliases
 [[ -s "$HOME/dotfiles/.aliases" ]] && source "$HOME/dotfiles/.aliases"
+[[ -s "$HOME/dotfiles/completions.zsh" ]] && source "$HOME/dotfiles/completions.zsh"
 
 # gcp
 # updates PATH for the Google Cloud SDK.

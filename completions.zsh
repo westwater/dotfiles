@@ -11,4 +11,4 @@ _g_completions() {
   scripts=(${script_dir}/[^._]*(N:t))
   (( ${#scripts} )) && compadd -a scripts
 }
-compdef _g_completions ~/.g/g
+compdef _g_completions '~/.g/g'

@@ -18,6 +18,9 @@ alias gopen='open $(git config --get remote.origin.url | sed -E "s|^git@([^:]+):
 # macOS screen path
 alias s="/usr/local/bin/screen"
 
+# Slack with CDP debug port (allows Claude to read tokens from running app)
+alias slack='/Applications/Slack.app/Contents/MacOS/Slack --remote-debugging-port=9222 &>/dev/null &'
+
 # bloop (uses brew services)
 alias bloop-start="brew services start bloop"
 alias bloop-stop="brew services stop bloop"
