@@ -1,0 +1,76 @@
+filetype: scala
+
+detect:
+    filename: "\\.(scala|sbt|sc|mill)$"
+
+rules:
+    # ---------- comments ----------
+    - comment:
+        start: "//"
+        end: "$"
+        rules:
+            - todo: "(TODO|FIXME|XXX|HACK|NOTE):?"
+
+    - comment:
+        start: "/\\*"
+        end: "\\*/"
+        rules:
+            - todo: "(TODO|FIXME|XXX|HACK|NOTE):?"
+
+    # ---------- keywords (Scala 2 + 3) ----------
+    - statement: "\\b(abstract|case|catch|class|def|do|else|extends|final|finally|for|forSome|if|implicit|import|lazy|match|new|object|override|package|private|protected|return|sealed|super|this|throw|trait|try|type|val|var|while|with|yield)\\b"
+
+    # Scala 3 soft keywords
+    - statement: "\\b(given|using|then|enum|export|end|inline|opaque|transparent|derives|extension|infix|open)\\b"
+
+    # ---------- operators / punctuation ----------
+    - symbol.operator: "([-+/*=<>!~%&|^]+|:=|::|=>|<-|@|#)"
+    - symbol.brackets: "[(){}\\[\\]]"
+
+    # ---------- constants ----------
+    - constant: "\\b(true|false|null|None|Nil|Unit)\\b"
+
+    # ---------- types (convention: CamelCase) ----------
+    - type: "\\b(Int|Long|Short|Byte|Char|Float|Double|Boolean|String|Symbol|Any|AnyRef|AnyVal|Nothing|Null|Unit)\\b"
+    - type: "\\b(Option|Some|Either|Left|Right|Try|Success|Failure|Future|Promise|Seq|List|Vector|Map|Set|Array|Iterator|Iterable|IndexedSeq|HashMap|HashSet|ListBuffer|ArrayBuffer|Tuple[0-9]+|Function[0-9]+)\\b"
+    - type: "\\b[A-Z][a-zA-Z0-9_]*\\b"
+
+    # ---------- annotations ----------
+    - preproc: "@[A-Za-z_][A-Za-z0-9_]*"
+
+    # ---------- numbers ----------
+    - constant.number: "\\b0[xX][0-9a-fA-F_]+[Ll]?\\b"
+    - constant.number: "\\b[0-9][0-9_]*\\.[0-9_]+([eE][-+]?[0-9]+)?[fFdD]?\\b"
+    - constant.number: "\\b[0-9][0-9_]*[eE][-+]?[0-9]+[fFdD]?\\b"
+    - constant.number: "\\b[0-9][0-9_]*[LlfFdD]?\\b"
+
+    # ---------- strings ----------
+    # triple-quoted (multi-line raw) strings, with optional interpolator prefix
+    - constant.string:
+        start: "[a-z]*\"\"\""
+        end: "\"\"\""
+        rules:
+            - constant.specialChar: "\\$\\{[^}]*\\}"
+            - constant.specialChar: "\\$[a-zA-Z_][a-zA-Z0-9_]*"
+
+    # interpolated / plain double-quoted strings
+    - constant.string:
+        start: "[a-z]*\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\[btnfr\"'\\\\0]"
+            - constant.specialChar: "\\\\u[0-9a-fA-F]{4}"
+            - constant.specialChar: "\\$\\{[^}]*\\}"
+            - constant.specialChar: "\\$[a-zA-Z_][a-zA-Z0-9_]*"
+
+    # Scala char literal
+    - constant.string:
+        start: "'"
+        end: "'"
+        skip: "\\\\."
+        rules: []
+
+    # ---------- special identifiers ----------
+    # underscore placeholder
+    - identifier: "\\b_\\b"
