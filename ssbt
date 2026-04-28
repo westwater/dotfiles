@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec env SBT_OPTS="-Xms2G -Xmx4G -Xss2M -XX:MaxMetaspaceSize=1024M -XX:+UseZGC -XX:+ZGenerational" sbt "$@"
