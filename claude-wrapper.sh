@@ -8,6 +8,14 @@
 GLOBAL_SETTINGS="$HOME/.g/global/settings.json"
 GLOBAL_MCP="$HOME/.g/global/mcp.json"
 
+# Load vault-managed env (e.g. CLAUDE_CODE_OAUTH_TOKEN for headless/SSH auth)
+CLAUDE_VAULT_ENV="$HOME/vault/claude/.env"
+if [ -f "$CLAUDE_VAULT_ENV" ]; then
+    set -a
+    . "$CLAUDE_VAULT_ENV"
+    set +a
+fi
+
 # Warn if not in ~/.g and no .g/ directory
 if [ "$(pwd)" != "$HOME/.g" ] && [ ! -d ".g" ]; then
     echo "[claude] Warning: running claude with no .g/ - are you sure? (y/N)"
