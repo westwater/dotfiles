@@ -47,6 +47,7 @@ alias gg="cd ~/.g"
 alias n8n="cd ~/n8n"
 alias accountant="cd ~/accountant"
 alias ha="cd ~/home-assistant"
+alias tcg="cd ~/Projects/tcg"
 
 #git
 alias ga="git add -A"
