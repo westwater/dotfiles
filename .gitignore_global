@@ -7,3 +7,5 @@
 .cursor
 .sidecar
 .playwright-cli
+
+**/.claude/settings.local.json
