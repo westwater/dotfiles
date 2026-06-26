@@ -13,6 +13,8 @@ alias gitconfig='$EDITOR ~/.gitconfig'
 alias dc='docker-compose'
 alias dn='docker network'
 alias y='yarn'
+# opencode → SiriusXM LiteLLM: cert scoped to opencode only (Claude Code untouched)
+alias oc='cd "$HOME/Projects/opencode" && NODE_EXTRA_CA_CERTS="$HOME/vault/siriusxm/litellm/certs/sxmcloud-ca-bundle.pem" opencode'
 alias tf="CGO_ENABLED=1 AWS_SDK_LOAD_CONFIG=1 terraform"
 alias cat="bat"
 alias sshconfig='$EDITOR ~/.ssh/config'
@@ -123,7 +125,6 @@ alias c='claude'
 alias cr='claude --resume'
 alias cch='claude --chrome'
 alias cchr='claude --chrome --resume'
-ch() { claude --channels plugin:telegram@claude-plugins-official "$@"; }
 
 
 # aws

@@ -8,12 +8,17 @@
 GLOBAL_SETTINGS="$HOME/.g/global/settings.json"
 GLOBAL_MCP="$HOME/.g/global/mcp.json"
 
-# Load vault-managed env (e.g. CLAUDE_CODE_OAUTH_TOKEN for headless/SSH auth)
-CLAUDE_VAULT_ENV="$HOME/vault/claude/.env"
-if [ -f "$CLAUDE_VAULT_ENV" ]; then
-    set -a
-    . "$CLAUDE_VAULT_ENV"
-    set +a
+# Load vault-managed env (e.g. CLAUDE_CODE_OAUTH_TOKEN) ONLY for headless/SSH
+# sessions. In an interactive terminal the env token would override — and never
+# refresh — the macOS Keychain OAuth login, forcing a re-login every session.
+# Interactive Mac sessions deliberately fall through to the Keychain, which persists.
+if [ ! -t 0 ] || [ -n "$SSH_CONNECTION" ]; then
+    CLAUDE_VAULT_ENV="$HOME/vault/claude/.env"
+    if [ -f "$CLAUDE_VAULT_ENV" ]; then
+        set -a
+        . "$CLAUDE_VAULT_ENV"
+        set +a
+    fi
 fi
 
 # Warn if not in ~/.g and no .g/ directory
