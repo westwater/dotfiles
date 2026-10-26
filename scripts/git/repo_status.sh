@@ -96,7 +96,6 @@ for repo in "${REPOS[@]}"; do
     esac
   done < <(git -C "$repo" status --porcelain=v2 --branch 2>/dev/null)
 
-  stash=$(git -C "$repo" stash list 2>/dev/null | wc -l | tr -d ' ')
   last=$(git -C "$repo" log -1 --format='%cr' 2>/dev/null)
   dirty=$((staged + modified + untracked + conflicts))
 
@@ -130,7 +129,6 @@ for repo in "${REPOS[@]}"; do
   (( staged > 0 ))    && parts+=("${GRN}${staged} staged${R}")
   (( modified > 0 ))  && parts+=("${YEL}${modified} modified${R}")
   (( untracked > 0 )) && parts+=("${RED}${untracked} untracked${R}")
-  (( stash > 0 ))     && parts+=("${MAG}${stash} stashed${R}")
   if (( ${#parts[@]} == 0 )); then
     summary="${GRN}clean${R}"
   else
