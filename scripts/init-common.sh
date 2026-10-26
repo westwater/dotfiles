@@ -30,11 +30,12 @@ source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk install coursier 2>/dev/null || true
 cs install metals 2>/dev/null || true
 
-# Clean up .zshrc - sdkman/nvm installers append duplicate init code (already in .myrc)
+# Clean up .zshrc - sdkman/nvm installers append duplicate init code
+# (nvm is lazy-loaded in .myrc; sdkman is sourced in .zshrc on a line marked `dotfiles:keep`)
 if [ -f "$HOME/.zshrc" ]; then
     sed_inplace '/^#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN/d' "$HOME/.zshrc"
     sed_inplace '/^export SDKMAN_DIR=/d' "$HOME/.zshrc"
-    sed_inplace '/sdkman-init.sh/d' "$HOME/.zshrc"
+    sed_inplace '/dotfiles:keep/!{/sdkman-init.sh/d;}' "$HOME/.zshrc"
     sed_inplace '/^export NVM_DIR=/d' "$HOME/.zshrc"
     sed_inplace '/NVM_DIR\/nvm.sh/d' "$HOME/.zshrc"
     sed_inplace '/NVM_DIR\/bash_completion/d' "$HOME/.zshrc"

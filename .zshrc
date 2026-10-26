@@ -1,6 +1,9 @@
 #!/usr/bin/env zsh
 # ZSH run commands
 
+# Keep path/fpath unique so re-sourcing this file can't pile up duplicates
+typeset -U path fpath
+
 # Idempotent path helper - only adds if not already present
 path_append() { [[ ":$PATH:" != *":$1:"* ]] && PATH="$PATH:$1"; }
 path_prepend() { [[ ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"; }
@@ -85,6 +88,12 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 if command -v kubectl &> /dev/null; then
   source <(kubectl completion zsh)
 fi
+
+# sdkman (after oh-my-zsh too, else its init runs a second compinit)
+# check versions  - sdk list java
+# install version - sdk install java 19.0.1-amzn
+# dotfiles:keep stops init-common.sh's installer-cleanup sed deleting this line
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"  # dotfiles:keep
 
 function zsh_options() {
     PLUGIN_PATH="$HOME/.oh-my-zsh/plugins/"

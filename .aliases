@@ -2,7 +2,7 @@
 
 #QoL
 # alias src='. ~/.bash_profile'
-alias src='source ~/.zshrc'
+alias src='exec zsh'
 alias d='docker'
 alias zshrc='$EDITOR ~/.zshrc'
 alias myrc='$EDITOR ~/dotfiles/.myrc'

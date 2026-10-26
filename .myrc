@@ -61,16 +61,17 @@ if [ ! -d "$NVM_DIR" ]; then
   echo "Installing nvm..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 fi
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# lazy-load: put the newest installed node on PATH now, source nvm.sh on first `nvm` call
+# (sourcing it eagerly cost ~0.4s per shell resolving the `lts/*` default alias)
+_nvm_node=( "$NVM_DIR"/versions/node/*(N/nOn[1]) )
+(( $#_nvm_node )) && path_prepend "$_nvm_node[1]/bin"
+unset _nvm_node
+nvm() { unfunction nvm; \. "$NVM_DIR/nvm.sh" --no-use; nvm "$@"; }
 
 # service-manager 
 export WORKSPACE="$HOME/work/hmrc"
 
-# sdkman
-# check versions  - sdk list java
-# install version - sdk install java 19.0.1-amzn
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# sdkman loaded in .zshrc after compinit
 
 # functions
 
