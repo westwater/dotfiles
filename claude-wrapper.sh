@@ -52,8 +52,39 @@ if [ -n "$config_dir" ] && [ -f "$config_dir/mcp.json" ]; then
     mcp_args+=(--mcp-config "$config_dir/mcp.json")
 fi
 
+# Hold a sleep assertion for the whole session. Claude Code takes its own
+# `caffeinate -i -t 300`, but that's a rolling 5-minute window it only renews
+# while actively working - so an idle wait (a long background task, or waiting
+# on the user) lets it lapse and the Mac idle-sleeps mid-session.
+#   -i  no idle system sleep   -m  no disk idle sleep   -s  no sleep on AC
+# Deliberately NOT -d: the display should still be allowed to turn off.
+keepawake=()
+if command -v caffeinate >/dev/null 2>&1; then
+    keepawake=(caffeinate -i -m -s)
+fi
+
+# Subcommands (`mcp`, `rc`/`remote-control`, `setup-token`, ...) reject the
+# injected --settings/--mcp-config flags, and `--mcp-config <configs...>` is
+# VARIADIC so it silently swallows the subcommand as another config path -
+# that is why `c rc` died with "MCP config file not found: .../rc". Pass
+# subcommands straight through with no injected flags.
+# `remote-control|rc` is hidden from --help but is a real subcommand.
+case "$1" in
+    agents|attach|auth|auto-mode|doctor|gateway|import|install|logs|mcp|\
+    plugin|plugins|project|remote-control|rc|respawn|rm|setup-token|stop|kill|\
+    ultrareview|update|upgrade)
+        if [ -n "$config_dir" ]; then
+            CLAUDE_CONFIG_DIR="$config_dir" exec command claude "$@"
+        else
+            exec command claude "$@"
+        fi
+        ;;
+esac
+
+# Flag order matters for a session: end with --settings (single-valued) rather
+# than the variadic --mcp-config, so a stray positional stays a prompt.
 if [ -n "$config_dir" ]; then
-    CLAUDE_CONFIG_DIR="$config_dir" command claude "${settings_args[@]}" "${mcp_args[@]}" "$@"
+    CLAUDE_CONFIG_DIR="$config_dir" "${keepawake[@]}" command claude "${mcp_args[@]}" "${settings_args[@]}" "$@"
 else
-    command claude "${settings_args[@]}" "${mcp_args[@]}" "$@"
+    "${keepawake[@]}" command claude "${mcp_args[@]}" "${settings_args[@]}" "$@"
 fi

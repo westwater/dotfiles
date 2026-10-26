@@ -15,6 +15,8 @@ alias dn='docker network'
 alias y='yarn'
 # opencode → SiriusXM LiteLLM: cert scoped to opencode only (Claude Code untouched)
 alias oc='cd "$HOME/Projects/opencode" && NODE_EXTRA_CA_CERTS="$HOME/vault/siriusxm/litellm/certs/sxmcloud-ca-bundle.pem" opencode'
+# opencode → per-repo config (e.g. lab gpt-oss), injected via OPENCODE_CONFIG. Never touches the global SiriusXM config or `oc`.
+alias o='$HOME/dotfiles/opencode-wrapper.sh'
 alias tf="CGO_ENABLED=1 AWS_SDK_LOAD_CONFIG=1 terraform"
 alias cat="bat"
 alias sshconfig='$EDITOR ~/.ssh/config'

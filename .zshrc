@@ -130,6 +130,14 @@ export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 claude() { ~/dotfiles/claude-wrapper.sh "$@"; }
 alias note='~/.g/note'
 
+# s - git status dashboard for dotfiles, vault and .g (s -n: no fetch, s -l: list changed files)
+# overrides the screen alias in .macaliases
+alias s='~/dotfiles/scripts/git/repo_status.sh'
+
+# lab - run the lab VM's GPU workload switcher/dashboard over SSH (-t for colours/TTY)
+lab() { ssh -t lab lab "$@"; }
+compdef '_arguments "1:cmd:(status use logs dl help)" "2:target:(gpt-oss unreal free)"' lab 2>/dev/null
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
