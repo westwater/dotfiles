@@ -1,1 +1,4 @@
 micro/buffers/history
+
+# python bytecode (test runs)
+__pycache__/
