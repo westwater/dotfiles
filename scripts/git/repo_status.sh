@@ -3,13 +3,25 @@
 # Claude plan usage left. Fetches remotes + usage in parallel, then shows
 # branch, ahead/behind and working-tree changes per repo.
 #
-# usage: repo_status.sh [-n|--no-fetch] [-l|--list]
-#   -n  skip the fetch (instant; ahead/behind + claude usage may be stale)
-#   -l  also list every changed file
+# usage: repo_status.sh [lab] [-n|--no-fetch] [-l|--list]
+#   lab  run it on the lab over ssh, against the lab's own checkouts (no claude usage)
+#   -n   skip the fetch (instant; ahead/behind + claude usage may be stale)
+#   -l   also list every changed file
 
 REPOS=("$HOME/dotfiles" "$HOME/vault" "$HOME/.g")
 USAGE_HELPER="$(dirname "$0")/claude_usage.py"
 FETCH_TIMEOUT=10
+
+# s lab: pipe this script to the lab rather than trusting the lab's own (maybe older) copy
+if [[ ${1:-} == lab ]]; then
+  shift
+  flags=()
+  for arg in "$@"; do
+    case "$arg" in -n|--no-fetch|-l|--list) flags+=("$arg") ;; esac
+  done
+  exec ssh -o ConnectTimeout=8 lab "S_HOST=lab COLUMNS=$(tput cols 2>/dev/null || echo 80) bash -s -- ${flags[*]}" < "$0"
+fi
+remote=${S_HOST:-}
 
 do_fetch=1
 show_files=0
@@ -17,7 +29,7 @@ for arg in "$@"; do
   case "$arg" in
     -n|--no-fetch) do_fetch=0 ;;
     -l|--list) show_files=1 ;;
-    -h|--help) sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
   esac
 done
 
@@ -44,8 +56,10 @@ if [[ $do_fetch == 1 ]]; then
     pids+=($!)
     i=$((i + 1))
   done
-  FORCE_COLOR=1 python3 "$USAGE_HELPER" >"$tmp/claude" 2>/dev/null &
-  pids+=($!)
+  if [[ -z $remote ]]; then
+    FORCE_COLOR=1 python3 "$USAGE_HELPER" >"$tmp/claude" 2>/dev/null &
+    pids+=($!)
+  fi
   ( sleep "$FETCH_TIMEOUT"; kill "${pids[@]}" 2>/dev/null ) >/dev/null 2>&1 &
   watchdog=$!
   wait "${pids[@]}" 2>/dev/null
@@ -55,10 +69,10 @@ if [[ $do_fetch == 1 ]]; then
 fi
 
 # --- render -------------------------------------------------------------------
-cols=$(tput cols 2>/dev/null || echo 80)
+cols=${COLUMNS:-$(tput cols 2>/dev/null || echo 80)}
 rule() { printf '%s' "$D"; printf '─%.0s' $(seq 1 "$1"); printf '%s\n' "$R"; }
 
-printf '\n %s %s\n' "${B}repo status${R}" "${D}$(date '+%H:%M')$( [[ $do_fetch == 0 ]] && echo ' · no fetch')${R}"
+printf '\n %s %s\n' "${B}repo status${remote:+ · ${remote}}${R}" "${D}$(date '+%H:%M')$( [[ $do_fetch == 0 ]] && echo ' · no fetch')${R}"
 rule $(( cols < 72 ? cols : 72 ))
 
 i=-1
@@ -157,6 +171,7 @@ for repo in "${REPOS[@]}"; do
 done
 
 # --- claude plan usage (fetched above; cached copy if that timed out or -n) ----
-if [[ -s $tmp/claude ]]; then cat "$tmp/claude"
+if [[ -n $remote ]]; then :
+elif [[ -s $tmp/claude ]]; then cat "$tmp/claude"
 else FORCE_COLOR=1 python3 "$USAGE_HELPER" --cache-only 2>/dev/null; fi
 echo

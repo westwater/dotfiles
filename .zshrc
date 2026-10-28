@@ -139,7 +139,7 @@ export FZF_CTRL_T_COMMAND="fd -t d -d 1 ."
 claude() { ~/dotfiles/claude-wrapper.sh "$@"; }
 alias note='~/.g/note'
 
-# s - git status dashboard for dotfiles, vault and .g (s -n: no fetch, s -l: list changed files)
+# s - git status dashboard for dotfiles, vault and .g (s -n: no fetch, s -l: list changed files, s lab: the lab's checkouts)
 # overrides the screen alias in .macaliases
 alias s='~/dotfiles/scripts/git/repo_status.sh'
 
