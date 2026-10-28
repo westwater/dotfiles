@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-# Git status dashboard for the personal repos (dotfiles, vault, .g).
-# Fetches each remote in parallel, then shows branch, ahead/behind and
-# working-tree changes per repo.
+# Git status dashboard for the personal repos (dotfiles, vault, .g), plus
+# Claude plan usage left. Fetches remotes + usage in parallel, then shows
+# branch, ahead/behind and working-tree changes per repo.
 #
 # usage: repo_status.sh [-n|--no-fetch] [-l|--list]
-#   -n  skip the fetch (instant, but ahead/behind may be stale)
+#   -n  skip the fetch (instant; ahead/behind + claude usage may be stale)
 #   -l  also list every changed file
 
 REPOS=("$HOME/dotfiles" "$HOME/vault" "$HOME/.g")
+USAGE_HELPER="$(dirname "$0")/claude_usage.py"
 FETCH_TIMEOUT=10
 
 do_fetch=1
@@ -43,6 +44,8 @@ if [[ $do_fetch == 1 ]]; then
     pids+=($!)
     i=$((i + 1))
   done
+  FORCE_COLOR=1 python3 "$USAGE_HELPER" >"$tmp/claude" 2>/dev/null &
+  pids+=($!)
   ( sleep "$FETCH_TIMEOUT"; kill "${pids[@]}" 2>/dev/null ) >/dev/null 2>&1 &
   watchdog=$!
   wait "${pids[@]}" 2>/dev/null
@@ -152,4 +155,8 @@ for repo in "${REPOS[@]}"; do
     printf '     %s%s%s %s\n' "$c" "${xy//./ }" "$R" "$path"
   done
 done
+
+# --- claude plan usage (fetched above; cached copy if that timed out or -n) ----
+if [[ -s $tmp/claude ]]; then cat "$tmp/claude"
+else FORCE_COLOR=1 python3 "$USAGE_HELPER" --cache-only 2>/dev/null; fi
 echo
