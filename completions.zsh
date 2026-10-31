@@ -6,9 +6,9 @@ _g_completions() {
   else
     script_dir="${PWD}/.g"
   fi
-  [[ -d "$script_dir" ]] || return
   local -a scripts
-  scripts=(${script_dir}/[^._]*(N:t))
+  [[ -d "$script_dir" ]] && scripts=(${script_dir}/[^._]*(N:t))
+  scripts+=(${HOME}/.g/bin/[^._]*(N:t))
   (( ${#scripts} )) && compadd -a scripts
 }
 compdef _g_completions '~/.g/g'
