@@ -19,7 +19,8 @@ if [[ ${1:-} == lab ]]; then
   for arg in "$@"; do
     case "$arg" in -n|--no-fetch|-l|--list) flags+=("$arg") ;; esac
   done
-  exec ssh -o ConnectTimeout=8 lab "S_HOST=lab COLUMNS=$(tput cols 2>/dev/null || echo 80) bash -s -- ${flags[*]}" < "$0"
+  # -A: the lab's vault key has a passphrase and this non-interactive shell has no agent
+  exec ssh -A -o ConnectTimeout=8 lab "S_HOST=lab COLUMNS=$(tput cols 2>/dev/null || echo 80) bash -s -- ${flags[*]}" < "$0"
 fi
 remote=${S_HOST:-}
 
@@ -70,6 +71,8 @@ fi
 
 # --- render -------------------------------------------------------------------
 cols=${COLUMNS:-$(tput cols 2>/dev/null || echo 80)}
+# _after_fields N LINE: set _p to LINE minus its first N space-separated fields (no fork)
+_after_fields() { _p=$2; local k; for ((k = 0; k < $1; k++)); do _p=${_p#* }; done; }
 rule() { printf '%s' "$D"; printf '─%.0s' $(seq 1 "$1"); printf '%s\n' "$R"; }
 
 printf '\n %s %s\n' "${B}repo status${remote:+ · ${remote}}${R}" "${D}$(date '+%H:%M')$( [[ $do_fetch == 0 ]] && echo ' · no fetch')${R}"
@@ -100,16 +103,19 @@ for repo in "${REPOS[@]}"; do
         xy=${line:2:2}
         [[ ${xy:0:1} != . ]] && staged=$((staged + 1))
         [[ ${xy:1:1} != . ]] && modified=$((modified + 1))
-        # path is the last field (for renames, "new<TAB>old" — keep new)
-        if [[ ${line:0:1} == 2 ]]; then p=$(cut -d' ' -f10- <<<"$line"); p=${p%%$'\t'*}
-        else p=$(cut -d' ' -f9- <<<"$line"); fi
-        files+=("$xy $p") ;;
+        # path is the last field (for renames, "new<TAB>old" — keep new).
+        # No subshells in this loop: a mass `git rm --cached` gives thousands of lines.
+        if (( show_files )); then
+          if [[ ${line:0:1} == 2 ]]; then _after_fields 9 "$line"; p=${_p%%$'\t'*}
+          else _after_fields 8 "$line"; p=$_p; fi
+          files+=("$xy $p")
+        fi ;;
       "u "*)
         conflicts=$((conflicts + 1))
-        files+=("UU $(cut -d' ' -f11- <<<"$line")") ;;
+        (( show_files )) && { _after_fields 10 "$line"; files+=("UU $_p"); } ;;
       "? "*)
         untracked=$((untracked + 1))
-        files+=("?? ${line#\? }") ;;
+        (( show_files )) && files+=("?? ${line#\? }") ;;
     esac
   done < <(git -C "$repo" status --porcelain=v2 --branch 2>/dev/null)
 
