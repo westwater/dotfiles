@@ -28,6 +28,7 @@ alias lum="lumigo-cli"
 alias m="make"
 alias mi="micro"
 alias kittyconfig='$EDITOR ~/.config/kitty/kitty.conf'
+alias ghosttyconfig='$EDITOR ~/.config/ghostty/config'
 alias vault="cd ~/vault"
 alias sbtd="dev= sbt"
 alias ku="kubectl"
