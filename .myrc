@@ -49,7 +49,7 @@ path_prepend "${KREW_ROOT:-$HOME/.krew}/bin"
 
 # kubectl completion loaded in .zshrc after compinit
 
-# kitty
+# kitty (Ghostty sends esc-b/esc-f and ^A/^E for these instead, which zsh binds by default)
 bindkey "\e[1;3D"  backward-word # ⌥←
 bindkey "\e[1;3C"  forward-word # ⌥→
 bindkey  "\e[1;9D" beginning-of-line # ⌘→

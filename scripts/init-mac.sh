@@ -10,7 +10,7 @@ echo "Setting up macOS..."
 # Prerequisites (manual):
 # - Install xcode: xcode-select --install
 # - Install Rosetta (Apple Silicon): softwareupdate --install-rosetta
-# - Install Kitty terminal: ./kitty.sh
+# - Kitty terminal (old default, Ghostty is installed below): ./kitty.sh
 
 # Install brew
 if command -v brew &> /dev/null; then
@@ -52,6 +52,9 @@ fi
 
 # Nerd fonts for powerlevel10k
 brew install --cask font-meslo-lg-nerd-font 2>/dev/null || echo "font-meslo-lg-nerd-font already installed"
+
+# Ghostty terminal (config: ghostty.config, linked by link.sh)
+brew install --cask ghostty 2>/dev/null || echo "ghostty already installed"
 
 # Common setup (uv Python, sdkman, coursier, .zshrc cleanup)
 source "$(dirname "$0")/init-common.sh"

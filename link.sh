@@ -14,6 +14,10 @@ ln -sf $PWD/.p10k.zsh ~
 mkdir -p $HOME/.config/kitty
 ln -sf $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
 
+# Ghostty terminal config (default terminal)
+mkdir -p $HOME/.config/ghostty
+ln -sf $PWD/ghostty.config $HOME/.config/ghostty/config
+
 # Neovim config
 ln -sfn $PWD/nvim $HOME/.config/nvim
 
