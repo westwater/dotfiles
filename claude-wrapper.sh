@@ -81,10 +81,27 @@ case "$1" in
         ;;
 esac
 
+# Every interactive terminal session gets Remote Control, so it can be picked
+# up from the phone/claude.ai while away from the laptop. Skipped for
+# -p/--print, piped stdin and SSH (same test as the vault-env block above:
+# headless runs use the setup-token, and nobody drives them remotely), when
+# the caller already passed --remote-control, or with CLAUDE_NO_RC=1.
+rc_args=()
+if [ -t 0 ] && [ -z "$SSH_CONNECTION" ] && [ -z "$CLAUDE_NO_RC" ]; then
+    rc_args=(--remote-control)
+    for arg in "$@"; do
+        case "$arg" in
+            -p|--print|--remote-control|--remote-control=*) rc_args=(); break ;;
+        esac
+    done
+fi
+
 # Flag order matters for a session: end with --settings (single-valued) rather
 # than the variadic --mcp-config, so a stray positional stays a prompt.
+# --remote-control goes first: its name is optional, and the next token is a
+# flag, so it can't swallow anything.
 if [ -n "$config_dir" ]; then
-    CLAUDE_CONFIG_DIR="$config_dir" "${keepawake[@]}" command claude "${mcp_args[@]}" "${settings_args[@]}" "$@"
+    CLAUDE_CONFIG_DIR="$config_dir" "${keepawake[@]}" command claude "${rc_args[@]}" "${mcp_args[@]}" "${settings_args[@]}" "$@"
 else
-    "${keepawake[@]}" command claude "${mcp_args[@]}" "${settings_args[@]}" "$@"
+    "${keepawake[@]}" command claude "${rc_args[@]}" "${mcp_args[@]}" "${settings_args[@]}" "$@"
 fi
